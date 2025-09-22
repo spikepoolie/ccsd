@@ -1,3 +1,4 @@
+/* Base styles */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +6,244 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #eef1f4; /* page background (outside of main content shell) */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Recharts tooltip styles */
+.recharts-tooltip {
+  font-family: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+/* Utility classes used by components (previously Tailwind) */
+.page-shell { width: 100%; box-sizing: border-box; padding: 0; background: transparent; }
+.app-container { padding: 24px 16px; font-family: inherit; width: 100%; background: #f7f7f9; border-radius: 12px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); position: relative; z-index: 1; }
+.chart-row { display: flex; gap: 24px; align-items: flex-start; }
+.side-legend { display: flex; flex-direction: column; gap: 10px; width: 280px; min-width: 240px; flex: 0 0 280px; }
+
+/* Increase legend spacing for tablet and desktop */
+@media (min-width: 768px) {
+  .side-legend { 
+    gap: 18px; 
+  }
+  
+  .legend-card {
+    padding: 12px 14px;
+  }
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .chart-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .side-legend {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .legend-card {
+    width: auto;
+    min-width: 140px;
+    flex: 0 0 auto;
+  }
+}
+.chart-area { display: block; margin: 0; flex: 1 1 auto; }
+
+/* For pie/doughnut charts on desktop and tablet, constrain chart width to keep it closer to legend */
+@media (min-width: 768px) {
+  .chart-area.pie-chart,
+  .chart-area.doughnut-chart {
+    flex: 0 0 auto;
+    width: 500px;
+    max-width: 500px;
+  }
+  
+  /* Reduce gap between legend and pie/doughnut charts */
+  .chart-row:has(.pie-chart),
+  .chart-row:has(.doughnut-chart) {
+    gap: 0px;
+  }
+}
+
+/* For smaller tablets, reduce chart width */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .chart-area.pie-chart,
+  .chart-area.doughnut-chart {
+    width: 400px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* Header approximations */
+header[role="banner"] { position: sticky; top: 0; z-index: 1000; padding: 0; background: #112540; border-bottom: 1px solid #eee; }
+header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max-width: 1280px; margin: 0 auto; padding: 12px 0; background: transparent; }
+.menu-toggle { display: none; background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff; border-radius: 8px; padding: 6px 10px; cursor: pointer; margin-right: 8px; }
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; width: auto; height: auto; padding: 6px 10px; background: #fff; color: #000; border-radius: 6px; }
+
+/* Legend container grid for bar charts */
+#legend-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 14px; align-items: start; justify-items: start; }
+
+/* Hide legends on mobile phones */
+@media (max-width: 767px) {
+  #legend-container {
+    display: none;
+  }
+  
+  .side-legend {
+    display: none !important;
+  }
+}
+.legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: 60%; cursor: pointer; }
+.legend-card.is-hidden { opacity: 0.5; }
+.legend-top { display: flex; align-items: center; justify-content: flex-start; font-weight: 600; font-size: 13px; color: #222; }
+.legend-bottom { display: flex; align-items: center; justify-content: space-between; }
+.legend-swatch { height: 10px; width: 54px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex: 0 0 auto; }
+.legend-value { font-size: 12px; color: #333; margin-left: 12px; flex: 1 1 auto; }
+
+/* Mobile legend styling - pill-like, 2 per row, centered */
+@media (max-width: 767px) {
+  #legend-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    justify-content: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+  
+  .legend-card {
+    padding: 6px 8px;
+    border-radius: 16px;
+    font-size: 11px;
+    text-align: center;
+    min-width: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+  }
+  
+  .legend-top {
+    font-size: 11px;
+    justify-content: center;
+    margin-bottom: 2px;
+  }
+  
+  .legend-bottom {
+    justify-content: center;
+    font-size: 10px;
+  }
+  
+  .legend-value {
+    font-size: 10px;
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+/* Responsive city selector styles */
+.city-selector-label {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.city-selector-label::after {
+  content: "Select City:";
+}
+
+.city-pills-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.city-pill {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.city-pill.selected {
+  background: #112540;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(66, 133, 244, 0.3);
+}
+
+.city-pill:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.city-select-dropdown {
+  display: none;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  min-width: 200px;
+  /* Force dropdown to open downwards on mobile */
+  -webkit-appearance: menulist;
+  appearance: menulist;
+}
+
+/* Tablet styles - 5 pills per row */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .city-selector-label::after {
+    content: "Cities";
+  }
+  
+  .city-pills-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  
+  .city-pill {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Phone styles - show select dropdown instead of pills */
+@media (max-width: 767px) {
+  .city-pills-container {
+    display: none;
+  }
+  
+  .city-select-dropdown {
+    display: block;
+  }
+}
+
+/* Desktop styles - show "Cities" label */
+@media (min-width: 1024px) {
+  .city-selector-label::after {
+    content: "Cities";
+  }
 }

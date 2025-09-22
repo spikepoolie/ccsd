@@ -1,0 +1,26 @@
+{
+  "American Indian": {
+    "count": 0,
+    "percentage": 0
+  },
+  "Asian": {
+    "count": 11,
+    "percentage": 2
+  },
+  "White": {
+    "count": 139,
+    "percentage": 23
+  },
+  "Unknown": {
+    "count": 25,
+    "percentage": 4
+  },
+  "Hispanic": {
+    "count": 182,
+    "percentage": 30
+  },
+  "Black": {
+    "count": 249,
+    "percentage": 41
+  }
+}
