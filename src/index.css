@@ -294,10 +294,12 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
 }
 
-/* Legend layout: single source of truth */
+/* Legend layout: horizontal spacing only */
 .legend-grid {
   display: grid !important;
-  gap: 36px !important;            /* ← actual spacing between items */
+  column-gap: 36px !important; /* horizontal */
+  row-gap: 10px !important;       /* vertical space */
+  /* equivalently: gap: 0 36px; */
 }
 
 /* Mobile: 3 per row */

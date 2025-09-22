@@ -5,11 +5,10 @@ import './chartConfig/chartJsSetup';
 import SideDrawer from './components/SideDrawer';
 import Header from './components/Header';
 import sheriffLogo from './images/sheriff-logo.webp';
+import { CHART_PALETTE } from './chartConfig/colors';
 
 // Define colors for charts
-const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF7043'];
-
-// Using react-chartjs-2; tooltips/labels configured in options and datalabels plugin
+const COLORS = CHART_PALETTE;
 
 // Custom legend component for all charts (now placed left via CSS on tablet/desktop)
 const CustomLegend = ({ data, chartType }) => {
@@ -24,7 +23,7 @@ const CustomLegend = ({ data, chartType }) => {
           <div className="legend-bottom legend-stack">
             <div
               className="legend-swatch"
-              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                style={{ backgroundColor: COLORS[index % COLORS.length] }}
             />
             <div className="legend-value">
               {entry.bookings.toLocaleString()} - {entry.percentage}%
@@ -345,6 +344,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      // Keep built-in legend hidden; we render our own external legend
       legend: { display: false },
       tooltip: {
         callbacks: {
@@ -356,7 +356,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           },
         },
       },
-      datalabels: {
+  datalabels: {
         display: true,
         color: '#ffffff',
         formatter: (value, context) => {
@@ -366,7 +366,8 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           const pct = percentages[i] ?? 0;
           return `${race}\n${val} - ${pct}%`;
         },
-        font: { size: (isMobile || isTwoCol) ? 10 : 12, weight: 'bold' },
+        // Increase non-bar chart label font sizes for better readability
+        font: { size: (isMobile || isTwoCol) ? 18 : 14, weight: '' },
         align: 'center',
         anchor: 'center',
         clip: false,

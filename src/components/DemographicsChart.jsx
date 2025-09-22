@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import { registerBaseChartJS, htmlLegendPlugin } from '../chartConfig/chartJsSetup';
+import { CHART_PALETTE } from '../chartConfig/colors';
 import '../styles/chart.css';
 
 registerBaseChartJS();
@@ -27,9 +28,7 @@ export default function DemographicsChart({ labels, counts, percentages, chartTy
       {
         label: 'Count',
         data: counts,
-        backgroundColor: [
-          '#4285F4', '#DB4437', '#F4B400', '#0F9D58', '#AB47BC', '#00ACC1', '#FF7043'
-        ],
+        backgroundColor: CHART_PALETTE,
       }
     ]
   }), [labels, counts]);
@@ -88,7 +87,8 @@ export default function DemographicsChart({ labels, counts, percentages, chartTy
           const nearTop = props.y != null && props.y < (ctx.chart.chartArea.top + 36);
           return nearTop ? 0 : 16;
         },
-        font: (ctx) => ({ weight: 'bold', size: chartType === 'bar' ? 11 : 10 }),
+        // Increase font size for non-bar charts (pie/doughnut)
+        font: (ctx) => ({ weight: 'bold', size: chartType === 'bar' ? 11 : 14 }),
         formatter: (value, ctx) => {
           const idx = ctx.dataIndex ?? 0;
           const pct = typeof percentages[idx] === 'number' ? `${percentages[idx]}%` : '';
@@ -113,7 +113,7 @@ export default function DemographicsChart({ labels, counts, percentages, chartTy
 
   return (
     <>
-      {isPieLike && <div ref={legendRef} className="html-legend" />}
+  {isPieLike && <div ref={legendRef} className="html-legend" />}
       <div className="chart-wrapper">
         {chartType === 'bar' && <Bar data={barData} options={baseOptions} />}
         {chartType === 'pie' && (
