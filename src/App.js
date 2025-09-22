@@ -87,6 +87,20 @@ const ChartFromDataJson = () => {
   const cLabels = React.useMemo(() => censusRows.map(r => r.race), [censusRows]);
   const cCounts = React.useMemo(() => censusRows.map(r => Number(r.bookings) || 0), [censusRows]);
   const cPercentages = React.useMemo(() => censusRows.map(r => Number(r.percentage) || 0), [censusRows]);
+  
+  // Determine if the selected city should show the Census chart.
+  // Preference: use the hasCensus flag from bookings.json rows for the city; fallback to presence of census rows.
+  const hasCensusForCity = React.useMemo(() => {
+    if (bookingRows && bookingRows.length) {
+      // If any row explicitly has true, we show it; if all rows explicitly false, hide it
+      const anyTrue = bookingRows.some(r => r && r.hasCensus === true);
+      const allFalse = bookingRows.every(r => r && r.hasCensus === false);
+      if (anyTrue) return true;
+      if (allFalse) return false;
+    }
+    // Fallback: show if census dataset has entries for the city
+    return (censusRows && censusRows.length > 0);
+  }, [bookingRows, censusRows]);
   // Dashboard options (census removed; add more later)
   const dashboards = [
     { key: 'bookings', label: 'Persons Arrested/Booked / Census' },
@@ -136,6 +150,10 @@ const ChartFromDataJson = () => {
   const isPhone = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
   const tightNonBarPhone = isPhone && chartType !== 'bar';
   const headingBottomMarginPx = tightNonBarPhone ? 2 : 8;
+  // If no census for the selected city, switch to single-column layout for any chart type
+  const singleColNoCensus = !hasCensusForCity;
+  // On tablet/desktop: for non-bar charts when there is no census, place legend to the right of the chart
+  const legendRight = !isPhone && chartType !== 'bar' && !hasCensusForCity;
   
   return (
     <>
@@ -235,7 +253,7 @@ const ChartFromDataJson = () => {
             
           </div>
           
-          <div className={`two-col-charts ${tightNonBarPhone ? 'tight-nonbar-phone' : ''}`}>
+          <div className={`two-col-charts ${tightNonBarPhone ? 'tight-nonbar-phone' : ''} ${singleColNoCensus ? 'single-col' : ''}`}>
             <section className="chart-card">
               <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
               <ChartSwitcher
@@ -243,17 +261,20 @@ const ChartFromDataJson = () => {
                 chartType={chartType}
                 demo={{ labels: bLabels, counts: bCounts, percentages: bPercentages }}
                 viewLabel={'Bookings'}
+                legendRight={legendRight}
               />
             </section>
-            <section className="chart-card">
-              <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Census by Race</h2>
-              <ChartSwitcher
-                view={view}
-                chartType={chartType}
-                demo={{ labels: cLabels, counts: cCounts, percentages: cPercentages }}
-                viewLabel={'Census'}
-              />
-            </section>
+            {hasCensusForCity && (
+              <section className="chart-card">
+                <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Census by Race</h2>
+                <ChartSwitcher
+                  view={view}
+                  chartType={chartType}
+                  demo={{ labels: cLabels, counts: cCounts, percentages: cPercentages }}
+                  viewLabel={'Census'}
+                />
+              </section>
+            )}
           </div>
         </main>
         </div>
@@ -262,7 +283,7 @@ const ChartFromDataJson = () => {
   );
 };
 
-function ChartSwitcher({ view, chartType, demo, viewLabel }) {
+function ChartSwitcher({ view, chartType, demo, viewLabel, legendRight = false }) {
   const { labels, counts, percentages } = demo;
   
   // Unified data structure for legend and charts
@@ -392,7 +413,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
   };
 
   return (
-    <div className="chart-row">
+    <div className={`chart-row ${legendRight ? 'legend-right' : ''}`}>
       {/* External legend (hidden for bar charts) */}
       {chartType !== 'bar' && (
         <CustomLegend data={chartData} chartType={chartType} />
