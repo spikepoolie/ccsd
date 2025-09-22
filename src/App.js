@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import bookings from './data/bookings.json';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import './chartConfig/chartJsSetup';
 import SideDrawer from './components/SideDrawer';
 import Header from './components/Header';
 import sheriffLogo from './images/sheriff-logo.webp';
@@ -8,41 +9,11 @@ import sheriffLogo from './images/sheriff-logo.webp';
 // Define colors for charts
 const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF7043'];
 
-// Custom tooltip component for Recharts
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <div className="recharts-tooltip" style={{ 
-        backgroundColor: 'rgba(255, 255, 255, 0.95)', 
-        border: '1px solid #ccc', 
-        borderRadius: '6px', 
-        padding: '10px', 
-        boxShadow: '0 2px 8px rgba(0,0,0,0.15)' 
-      }}>
-        <p style={{ margin: 0, fontWeight: 'bold', marginBottom: '4px' }}>{label}</p>
-        <p style={{ margin: 0, color: '#333' }}>
-          Bookings: {payload[0].value.toLocaleString()}
-        </p>
-        {data.percentage !== undefined && (
-          <p style={{ margin: 0, color: '#666' }}>
-            Percentage: {data.percentage}%
-          </p>
-        )}
-      </div>
-    );
-  }
-  return null;
-};
+// Using react-chartjs-2; tooltips/labels configured in options and datalabels plugin
 
 // Custom legend component for pie charts
 const CustomLegend = ({ data, chartType }) => {
-  const isMobile = window.matchMedia('(max-width: 767px)').matches;
   const isCircular = chartType === 'pie' || chartType === 'doughnut';
-  
-  if (isMobile && isCircular) {
-    return null; // Hide legend on mobile for pie/doughnut charts
-  }
 
   if (!isCircular) {
     return null; // No custom legend for bar charts
@@ -196,7 +167,7 @@ const ChartFromDataJson = () => {
             {/* City selector moved here for better mobile dropdown positioning */}
             {(view === 'bookings' || view === 'census') && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}></h3>
+                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Cities</h3>
                 
                 {/* Pills for tablet/desktop */}
                 <div className="city-pills-container">
@@ -253,68 +224,139 @@ const ChartFromDataJson = () => {
 function ChartSwitcher({ view, chartType, demo, viewLabel }) {
   const { labels, counts, percentages } = demo;
   
-  // Transform data for Recharts format
+  // Unified data structure for legend and charts
   const chartData = labels.map((label, index) => ({
     race: label,
     bookings: counts[index] || 0,
     percentage: percentages[index] || 0
   }));
+  // Media query for responsive label decisions
+  const isMobile = window.matchMedia('(max-width: 767px)').matches;
 
   if (chartType === 'bar') {
+    const maxVal = counts.length ? Math.max(...counts) : 0;
+    const suggestedMax = Math.ceil(maxVal * 1.12); // headroom for labels above bars
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: 'Bookings',
+          data: counts,
+          backgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
+          borderColor: labels.map((_, i) => COLORS[i % COLORS.length]),
+          hoverBackgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
+          borderWidth: 0,
+          borderRadius: 4,
+        },
+      ],
+    };
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const v = Number(ctx.parsed.y || 0).toLocaleString();
+              const i = ctx.dataIndex ?? 0;
+              const pct = (percentages[i] ?? 0);
+              const base = `${v} - ${pct}%`;
+              return ctx.dataset.label ? `${ctx.dataset.label}: ${base}` : base;
+            },
+          },
+        },
+        datalabels: {
+          display: true,
+          color: '#112540',
+          formatter: (value, context) => {
+            const i = context.dataIndex;
+            const val = Number(value || 0).toLocaleString();
+            const pct = percentages[i] ?? 0;
+            return `${val} - ${pct}%`;
+          },
+          font: { size: 11, weight: 'bold' },
+          anchor: 'end',
+          align: 'top',
+          offset: 4,
+          clip: false,
+        },
+      },
+      scales: {
+        x: {
+          ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 },
+        },
+        y: {
+          ticks: { callback: (v) => Number(v).toLocaleString() },
+          beginAtZero: true,
+          suggestedMax,
+        },
+      },
+      layout: { padding: { top: 18, bottom: 20 } },
+    };
     return (
       <div style={{ width: '100%', height: '500px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="race" 
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              interval={0}
-            />
-            <YAxis />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="bookings" fill={COLORS[0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <Bar data={data} options={options} />
       </div>
     );
   }
 
   // For pie and doughnut charts
-  const isMobile = window.matchMedia('(max-width: 767px)').matches;
-  
+  // isMobile already computed above
+  const data = {
+    labels,
+    datasets: [
+      {
+        data: counts,
+        backgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
+        borderWidth: 0,
+      },
+    ],
+  };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const i = ctx.dataIndex;
+            const val = Number(ctx.parsed || 0).toLocaleString();
+            const pct = percentages[i] ?? 0;
+            return `${labels[i]}: ${val} (${pct}%)`;
+          },
+        },
+      },
+      datalabels: {
+        display: true,
+        color: '#112540',
+        formatter: (value, context) => {
+          const i = context.dataIndex;
+          const race = labels[i] || '';
+          const val = Number(value || 0).toLocaleString();
+          const pct = percentages[i] ?? 0;
+          return `${race}\n${val} - ${pct}%`;
+        },
+        font: { size: isMobile ? 10 : 11, weight: 'bold' },
+        align: 'center',
+        anchor: 'center',
+        clip: false,
+      },
+    },
+    layout: { padding: 6 },
+  };
+
   return (
     <div className="chart-row">
       <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ 
-          width: '100%', 
-          height: isMobile ? '400px' : '580px'
-        }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ race, bookings, percentage }) => 
-                  isMobile ? null : `${race}\n${bookings.toLocaleString()}\n${percentage}%`
-                }
-                outerRadius={chartType === 'doughnut' ? 120 : 140}
-                innerRadius={chartType === 'doughnut' ? 60 : 0}
-                fill="#8884d8"
-                dataKey="bookings"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomTooltip />} />
-            </PieChart>
-          </ResponsiveContainer>
+        <div style={{ width: '100%', height: isMobile ? '400px' : '580px' }}>
+          {chartType === 'doughnut' ? (
+            <Doughnut data={data} options={options} />
+          ) : (
+            <Pie data={data} options={options} />
+          )}
         </div>
       </figure>
     </div>

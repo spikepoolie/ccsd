@@ -14,12 +14,7 @@ code {
     monospace;
 }
 
-/* Recharts tooltip styles */
-.recharts-tooltip {
-  font-family: inherit !important;
-  font-size: 14px !important;
-  line-height: 1.4 !important;
-}
+/* Tooltip container styles (for any custom tooltips if used) */
 
 /* Utility classes used by components (previously Tailwind) */
 .page-shell { width: 100%; box-sizing: border-box; padding: 0; background: transparent; }
@@ -97,16 +92,7 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 /* Legend container grid for bar charts */
 #legend-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 14px; align-items: start; justify-items: start; }
 
-/* Hide legends on mobile phones */
-@media (max-width: 767px) {
-  #legend-container {
-    display: none;
-  }
-  
-  .side-legend {
-    display: none !important;
-  }
-}
+/* Legends are now shown on all sizes; use responsive grid tweaks in responsive.css */
 .legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: 60%; cursor: pointer; }
 .legend-card.is-hidden { opacity: 0.5; }
 .legend-top { display: flex; align-items: center; justify-content: flex-start; font-weight: 600; font-size: 13px; color: #222; }
@@ -118,15 +104,20 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 @media (max-width: 767px) {
   #legend-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns */
+    grid-template-rows: repeat(2, auto); /* 2 rows */
+    grid-auto-rows: auto;
+    gap: 8px 10px;
     justify-content: center;
+    justify-items: stretch;
+    align-items: stretch;
     max-width: 100%;
     margin: 0 auto;
     padding: 0 10px;
   }
   
   .legend-card {
+    width: 100%; /* ensure each card fills its grid cell */
     padding: 6px 8px;
     border-radius: 16px;
     font-size: 11px;

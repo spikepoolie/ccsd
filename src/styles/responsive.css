@@ -118,12 +118,20 @@ img { max-width: 100%; height: auto; }
   /* Render legend items in two columns to save vertical space */
   .chart-row #legend-container {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px 12px !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important; /* 3 columns on phones */
+    grid-auto-flow: row dense !important;
+    row-gap: 12px !important;
+    column-gap: 12px !important;
+    padding: 0 8px !important;
   }
   .chart-row #legend-container > div {
+    width: 100% !important;
+    box-sizing: border-box !important;
     padding: 6px 8px !important; /* slightly tighter cards on mobile */
   }
+  .legend-swatch { width: 36px !important; height: 8px !important; }
+  .legend-top { font-size: 10px !important; }
+  .legend-bottom { font-size: 10px !important; gap: 4px !important; }
   .chart-area {
     flex: 0 0 auto !important;
     width: 100% !important;
@@ -136,5 +144,3 @@ img { max-width: 100%; height: auto; }
     height: 100% !important;
   }
 }
-git config --global user.name "Rodrigo Schreiner"
-git config --global user.email "clintscoob@hotmail.com"
