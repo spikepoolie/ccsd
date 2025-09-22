@@ -357,7 +357,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
         },
       },
   datalabels: {
-        display: true,
+        display: !isMobile,
         color: '#ffffff',
         formatter: (value, context) => {
           const i = context.dataIndex;
@@ -378,8 +378,10 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
 
   return (
     <div className="chart-row">
+      {/* Place legend first so it occupies the left column on phones */}
+      <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ width: '100%', height: isMobile ? '300px' : (isTwoCol ? '380px' : '520px') }}>
+        <div style={{ width: '100%', height: isMobile ? '255px' : (isTwoCol ? '380px' : '520px') }}>
           {chartType === 'doughnut' ? (
             <Doughnut data={data} options={options} />
           ) : (
@@ -387,7 +389,6 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           )}
         </div>
       </figure>
-      <CustomLegend data={chartData} chartType={chartType} />
     </div>
   );
 }

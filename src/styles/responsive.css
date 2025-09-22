@@ -101,6 +101,48 @@ img { max-width: 100%; height: auto; }
   }
 }
 
+/* Phones and small tablets: keep legend on the left and chart on the right within two-col charts */
+@media (max-width: 767px) {
+  .two-col-charts .chart-row {
+    display: grid !important;
+    grid-template-columns: minmax(48px, 20%) 1fr !important;
+    align-items: start !important;
+    gap: 6px !important;
+  }
+  /* Show the side legend on phones and put it in the first column */
+  .two-col-charts .chart-row > .legend-grid.side-legend,
+  .two-col-charts .chart-row > .html-legend.legend-grid.side-legend {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-column: 1 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    row-gap: 4px !important;
+    column-gap: 0 !important;
+  }
+  /* Put chart content in the second column */
+  .two-col-charts .chart-row > .chart-area,
+  .two-col-charts .chart-row > .chart-wrapper {
+    grid-column: 2 !important;
+    width: 100% !important;
+  }
+  /* Make legend visuals compact */
+  .two-col-charts .legend-grid.side-legend .legend-card,
+  .two-col-charts .html-legend .legend-card {
+    padding: 2px 4px !important;
+    border-radius: 6px !important;
+    gap: 2px !important;
+  }
+  .two-col-charts .legend-grid.side-legend .legend-top,
+  .two-col-charts .html-legend .legend-top { font-size: 9px !important; line-height: 1.1 !important; }
+  .two-col-charts .legend-grid.side-legend .legend-bottom,
+  .two-col-charts .html-legend .legend-bottom { font-size: 8px !important; }
+  .two-col-charts .legend-grid.side-legend .legend-value,
+  .two-col-charts .html-legend .legend-value { font-size: 8px !important; }
+  .two-col-charts .legend-grid.side-legend .legend-swatch,
+  .two-col-charts .html-legend .legend-swatch { width: 20px !important; height: 4px !important; }
+}
+
 /* Stack legend above chart on small screens */
 @media (max-width: 600px) {
   .chart-row {
@@ -142,5 +184,29 @@ img { max-width: 100%; height: auto; }
   .chart-area canvas {
     width: 100% !important;
     height: 100% !important;
+  }
+
+  /* EXCEPTION: keep legend left / chart right within two-col charts on very small phones */
+  .two-col-charts .chart-row {
+    display: grid !important;
+    grid-template-columns: minmax(48px, 20%) 1fr !important;
+    align-items: start !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  .two-col-charts .chart-row > .legend-grid.side-legend,
+  .two-col-charts .chart-row > .html-legend.legend-grid.side-legend {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-column: 1 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    row-gap: 4px !important;
+    column-gap: 0 !important;
+  }
+  .two-col-charts .chart-row > .chart-area,
+  .two-col-charts .chart-row > .chart-wrapper {
+    grid-column: 2 !important;
+    width: 100% !important;
   }
 }

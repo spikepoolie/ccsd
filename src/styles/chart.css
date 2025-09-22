@@ -54,3 +54,8 @@
   gap: 6px 12px;
   margin-bottom: 8px;
 }
+
+/* When legend is hidden on phones, let chart expand */
+@media (max-width: 767px) {
+  .no-legend .chart-wrapper { width: 100%; max-width: 100%; }
+}
