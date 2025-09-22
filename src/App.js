@@ -11,8 +11,30 @@ const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF
 
 // Using react-chartjs-2; tooltips/labels configured in options and datalabels plugin
 
-// Custom legend temporarily disabled per request (keep component for future use)
-const CustomLegend = () => null;
+// Custom legend component for all charts (now placed left via CSS on tablet/desktop)
+const CustomLegend = ({ data, chartType }) => {
+  // We now show the legend for bar, pie, and doughnut
+  return (
+    <div id="legend-container" className="side-legend">
+      {data.map((entry, index) => (
+        <div key={`legend-${index}`} className="legend-card">
+          <div className="legend-top">
+            <div className="legend-label">{entry.race}</div>
+          </div>
+          <div className="legend-bottom legend-stack">
+            <div
+              className="legend-swatch"
+              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+            />
+            <div className="legend-value">
+              {entry.bookings.toLocaleString()} - {entry.percentage}%
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const ChartFromDataJson = () => {
   const [chartType, setChartType] = useState('bar');
@@ -301,7 +323,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
       layout: { padding: { top: 6, bottom: 8 } },
     };
     return (
-      <div style={{ width: '100%', height: isMobile ? '280px' : (isTwoCol ? '300px' : '400px') }}>
+      <div style={{ width: '100%', height: isMobile ? '300px' : (isTwoCol ? '340px' : '440px') }}>
         <Bar data={data} options={options} />
       </div>
     );
@@ -357,7 +379,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
     <div className="chart-row">
       <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ width: '100%', height: isMobile ? '260px' : (isTwoCol ? '300px' : '440px') }}>
+        <div style={{ width: '100%', height: isMobile ? '280px' : (isTwoCol ? '340px' : '480px') }}>
           {chartType === 'doughnut' ? (
             <Doughnut data={data} options={options} />
           ) : (
