@@ -167,7 +167,7 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 }
 
 .city-selector-label::after {
-  content: "Select City:";
+  content: "Select Agency:";
 }
 
 .city-pills-container {
@@ -355,5 +355,10 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   .two-col-charts.tight-nonbar-phone .chart-area > div,
   .two-col-charts.tight-nonbar-phone .chart-wrapper {
     height: 220px !important; /* slightly shorter charts to bring them closer */
+  }
+  /* Cap overall card height so the two charts sit closer together */
+  .two-col-charts.tight-nonbar-phone .chart-card {
+    max-height: 300px;
+    overflow: hidden; /* clip any excess (mostly tall legends) */
   }
 }
