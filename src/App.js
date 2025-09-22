@@ -132,6 +132,10 @@ const ChartFromDataJson = () => {
     { key: 'requests', label: 'Total Requests made' },
   ];
 
+  // Determine if phone width to optionally tighten spacing for non-bar charts
+  const isPhone = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+  const tightNonBarPhone = isPhone && chartType !== 'bar';
+  const headingBottomMarginPx = tightNonBarPhone ? 2 : 8;
   
   return (
     <>
@@ -231,9 +235,9 @@ const ChartFromDataJson = () => {
             
           </div>
           
-          <div className="two-col-charts">
+          <div className={`two-col-charts ${tightNonBarPhone ? 'tight-nonbar-phone' : ''}`}>
             <section className="chart-card">
-              <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
+              <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
               <ChartSwitcher
                 view={view}
                 chartType={chartType}
@@ -242,7 +246,7 @@ const ChartFromDataJson = () => {
               />
             </section>
             <section className="chart-card">
-              <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Census by Race</h2>
+              <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Census by Race</h2>
               <ChartSwitcher
                 view={view}
                 chartType={chartType}
@@ -389,8 +393,10 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
 
   return (
     <div className="chart-row">
-      {/* Place legend first so it occupies the left column on phones */}
-      <CustomLegend data={chartData} chartType={chartType} />
+      {/* External legend (hidden for bar charts) */}
+      {chartType !== 'bar' && (
+        <CustomLegend data={chartData} chartType={chartType} />
+      )}
       <figure className={`chart-area ${chartType}-chart`}>
         <div style={{ width: '100%', height: isMobile ? '255px' : (isTwoCol ? '380px' : '520px') }}>
           {chartType === 'doughnut' ? (

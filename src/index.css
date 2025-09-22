@@ -333,3 +333,27 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   .legend-grid .legend-card { margin: 6px; }
   .legend-grid { margin: -6px; }
 }
+
+/* Reduce gaps on phones for tight-nonbar-phone modifier */
+@media (max-width: 767px) {
+  .two-col-charts.tight-nonbar-phone {
+    gap: 4px; /* even tighter vertical spacing between the two charts */
+  }
+  .two-col-charts.tight-nonbar-phone .chart-card h2 {
+    margin-bottom: 2px; /* reduce title spacing */
+  }
+  .two-col-charts.tight-nonbar-phone .chart-row {
+    gap: 2px; /* reduce internal chart/legend spacing too */
+  }
+  .two-col-charts.tight-nonbar-phone .legend-grid {
+    row-gap: 6px !important;
+    column-gap: 8px !important;
+  }
+  .two-col-charts.tight-nonbar-phone .legend-grid .legend-card {
+    padding: 4px 6px !important;
+  }
+  .two-col-charts.tight-nonbar-phone .chart-area > div,
+  .two-col-charts.tight-nonbar-phone .chart-wrapper {
+    height: 220px !important; /* slightly shorter charts to bring them closer */
+  }
+}
