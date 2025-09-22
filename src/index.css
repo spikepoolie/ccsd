@@ -19,8 +19,8 @@ code {
 /* Utility classes used by components (previously Tailwind) */
 .page-shell { width: 100%; box-sizing: border-box; padding: 0; background: transparent; }
 .app-container { padding: 24px 16px; font-family: inherit; width: 100%; background: #f7f7f9; border-radius: 12px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); position: relative; z-index: 1; }
-.chart-row { display: flex; gap: 24px; align-items: flex-start; }
-.side-legend { display: flex; flex-direction: column; gap: 10px; width: 280px; min-width: 240px; flex: 0 0 280px; }
+.chart-row { display: flex; gap: 8px; align-items: flex-start; }
+.side-legend { display: none; }
 
 /* Increase legend spacing for tablet and desktop */
 @media (min-width: 768px) {
@@ -60,27 +60,14 @@ code {
 @media (min-width: 768px) {
   .chart-area.pie-chart,
   .chart-area.doughnut-chart {
-    flex: 0 0 auto;
-    width: 500px;
-    max-width: 500px;
-  }
-  
-  /* Reduce gap between legend and pie/doughnut charts */
-  .chart-row:has(.pie-chart),
-  .chart-row:has(.doughnut-chart) {
-    gap: 0px;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 /* For smaller tablets, reduce chart width */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .chart-area.pie-chart,
-  .chart-area.doughnut-chart {
-    width: 400px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-}
+/* Remove tablet-specific fixed widths when legends are disabled */
 
 /* Header approximations */
 header[role="banner"] { position: sticky; top: 0; z-index: 1000; padding: 0; background: #112540; border-bottom: 1px solid #eee; }
@@ -93,12 +80,15 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 #legend-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 14px; align-items: start; justify-items: start; }
 
 /* Legends are now shown on all sizes; use responsive grid tweaks in responsive.css */
-.legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: 60%; cursor: pointer; }
+.legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: auto; cursor: pointer; }
 .legend-card.is-hidden { opacity: 0.5; }
 .legend-top { display: flex; align-items: center; justify-content: flex-start; font-weight: 600; font-size: 13px; color: #222; }
 .legend-bottom { display: flex; align-items: center; justify-content: space-between; }
 .legend-swatch { height: 10px; width: 54px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex: 0 0 auto; }
 .legend-value { font-size: 12px; color: #333; margin-left: 12px; flex: 1 1 auto; }
+
+/* Ensure legend cards respect grid cell width */
+#legend-container .legend-card { width: 100%; }
 
 /* Mobile legend styling - pill-like, 2 per row, centered */
 @media (max-width: 767px) {
@@ -236,5 +226,53 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 @media (min-width: 1024px) {
   .city-selector-label::after {
     content: "Cities";
+  }
+}
+
+/* Two column layout for the two main charts on tablet/desktop; stack on phones */
+.two-col-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chart-card {
+  background: transparent;
+}
+
+@media (min-width: 600px) {
+  .two-col-charts {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
+    max-width: 100%;
+  }
+}
+
+/* When charts are in two-column cards, stack legend and pie/doughnut inside each card to avoid overflow */
+@media (min-width: 1024px) {
+  .two-col-charts .chart-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .two-col-charts .side-legend {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+  .two-col-charts .chart-area.pie-chart,
+  .two-col-charts .chart-area.doughnut-chart {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+  .two-col-charts #legend-container {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 6px 8px;
   }
 }

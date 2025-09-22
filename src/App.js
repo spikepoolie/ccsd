@@ -11,64 +11,53 @@ const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF
 
 // Using react-chartjs-2; tooltips/labels configured in options and datalabels plugin
 
-// Custom legend component for pie charts
-const CustomLegend = ({ data, chartType }) => {
-  const isCircular = chartType === 'pie' || chartType === 'doughnut';
-
-  if (!isCircular) {
-    return null; // No custom legend for bar charts
-  }
-
-  return (
-    <div id="legend-container" className="side-legend">
-      {data.map((entry, index) => (
-        <div key={`legend-${index}`} className="legend-card">
-          <div className="legend-top">
-            <div className="legend-label">{entry.race}</div>
-          </div>
-          <div className="legend-bottom">
-            <div 
-              className="legend-swatch" 
-              style={{ backgroundColor: COLORS[index % COLORS.length] }}
-            />
-            <div className="legend-value">
-              {entry.bookings.toLocaleString()} - {entry.percentage}%
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+// Custom legend temporarily disabled per request (keep component for future use)
+const CustomLegend = () => null;
 
 const ChartFromDataJson = () => {
   const [chartType, setChartType] = useState('bar');
-  const [view, setView] = useState('demographics'); // kept for UI compatibility; charts now show both datasets regardless
+  const [view, setView] = useState('demographics'); // SideDrawer section selection
+  const [dashboard, setDashboard] = useState('bookings'); // Top-level dashboard selector (future expansion)
   const [drawerOpen, setDrawerOpen] = useState(false);
   
-  // Build stable city list using ids, and a display name for pills/dropdowns
+  // Helper to normalize city names for deduplication and filtering
+  const normalizeCity = React.useCallback((name) => (name || '').toString().toLowerCase().replace(/\s+/g, ' ').trim(), []);
+  // Build deduplicated city list using normalized city name as key
   const cityList = React.useMemo(() => {
     const b = bookings.bookings || [];
     const c = bookings['census-bookings'] || [];
-    const byId = new Map();
+    const byKey = new Map();
     const upsert = (row) => {
-      if (!row || !row.id) return;
-      const name = (row.city || '').toString().replace(/\s+/g, ' ').trim();
-      const prev = byId.get(row.id) || { id: row.id, name };
-      // prefer a non-empty, trimmed name if available
-      const displayName = (prev.name && prev.name.length >= name.length) ? prev.name : name;
-      byId.set(row.id, { id: row.id, name: displayName });
+      if (!row) return;
+      const raw = (row.city || '').toString();
+      const name = raw.replace(/\s+/g, ' ').trim();
+      const key = normalizeCity(raw);
+      if (!key) return;
+      const prev = byKey.get(key);
+      if (!prev) {
+        byKey.set(key, { key, name });
+      } else {
+        // prefer the longer, more descriptive name
+        const displayName = prev.name.length >= name.length ? prev.name : name;
+        byKey.set(key, { key, name: displayName });
+      }
     };
     b.forEach(upsert);
     c.forEach(upsert);
-    return Array.from(byId.values()).sort((a, d) => a.name.localeCompare(d.name));
-  }, []);
-  const defaultCityId = (cityList.find(x => /contra\s*costa/i.test(x.name))?.id) || (cityList[0]?.id || '');
-  const [selectedCityId, setSelectedCityId] = useState(defaultCityId);
+    return Array.from(byKey.values()).sort((a, d) => a.name.localeCompare(d.name));
+  }, [normalizeCity]);
+  const defaultCityKey = (cityList.find(x => /contra\s*costa/i.test(x.name))?.key) || (cityList[0]?.key || '');
+  const [selectedCityId, setSelectedCityId] = useState(defaultCityKey);
   
   // Build datasets for the selected city from both sources
-  const bookingRows = React.useMemo(() => (bookings.bookings || []).filter(b => b.id === selectedCityId), [selectedCityId]);
-  const censusRows = React.useMemo(() => (bookings['census-bookings'] || []).filter(b => b.id === selectedCityId), [selectedCityId]);
+  const bookingRows = React.useMemo(
+    () => (bookings.bookings || []).filter(b => normalizeCity(b.city) === selectedCityId),
+    [selectedCityId, normalizeCity]
+  );
+  const censusRows = React.useMemo(
+    () => (bookings['census-bookings'] || []).filter(b => normalizeCity(b.city) === selectedCityId),
+    [selectedCityId, normalizeCity]
+  );
 
   const bLabels = React.useMemo(() => bookingRows.map(r => r.race), [bookingRows]);
   const bCounts = React.useMemo(() => bookingRows.map(r => Number(r.bookings) || 0), [bookingRows]);
@@ -77,14 +66,18 @@ const ChartFromDataJson = () => {
   const cLabels = React.useMemo(() => censusRows.map(r => r.race), [censusRows]);
   const cCounts = React.useMemo(() => censusRows.map(r => Number(r.bookings) || 0), [censusRows]);
   const cPercentages = React.useMemo(() => censusRows.map(r => Number(r.percentage) || 0), [censusRows]);
+  // Dashboard options (census removed; add more later)
+  const dashboards = [
+    { key: 'bookings', label: 'Persons Arrested/Booked' },
+  ];
   // Labels for SideDrawer views retained for future use
 
   // Ensure selectedCity is valid if city list changes
   React.useEffect(() => {
-    if (!cityList.some(x => x.id === selectedCityId)) {
-      setSelectedCityId(defaultCityId);
+    if (!cityList.some(x => x.key === selectedCityId)) {
+      setSelectedCityId(defaultCityKey);
     }
-  }, [cityList, selectedCityId, defaultCityId]);
+  }, [cityList, selectedCityId, defaultCityKey]);
 
   // Lock body scroll when the mobile drawer is open
   React.useEffect(() => {
@@ -142,7 +135,7 @@ const ChartFromDataJson = () => {
           onClose={() => setDrawerOpen(false)}
         />
         <main id="main" className="app-container" role="main" aria-live="polite" style={{ flex: '1 1 auto', minWidth: 0, margin: 0 }}>
-          {/* City and Chart Type selectors */}
+          {/* Dashboard, City and Chart Type selectors */}
           <div style={{ 
             display: 'flex', 
             gap: window.matchMedia('(max-width: 767px)').matches ? 12 : 24, 
@@ -151,6 +144,26 @@ const ChartFromDataJson = () => {
             marginBottom: 20, 
             flexWrap: 'wrap' 
           }}>
+            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 220 }}>
+              <label htmlFor="dashboardSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Select Dashboard:</label>
+              <select
+                id="dashboardSelect"
+                style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }}
+                value={dashboard}
+                onChange={(e) => setDashboard(e.target.value)}
+              >
+                {dashboards.map(item => (
+                  <option key={item.key} value={item.key}>{item.label}</option>
+                ))}
+              </select>
+              {/* Chart Type directly below Dashboard */}
+              <label style={{ margin: '12px 0 5px', fontWeight: 700 }}>Chart Type:</label>
+              <select style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }} value={chartType} onChange={e => setChartType(e.target.value)}>
+                <option value="bar">Bar</option>
+                <option value="pie">Pie</option>
+                <option value="doughnut">Doughnut</option>
+              </select>
+            </div>
             
             {/* City selector (applies to both charts) */}
             {true && (
@@ -161,9 +174,9 @@ const ChartFromDataJson = () => {
                 <div className="city-pills-container">
                   {cityList.map(city => (
                     <button
-                      key={city.id}
-                      onClick={() => setSelectedCityId(city.id)}
-                      className={`city-pill ${selectedCityId === city.id ? 'selected' : ''}`}
+                      key={city.key}
+                      onClick={() => setSelectedCityId(city.key)}
+                      className={`city-pill ${selectedCityId === city.key ? 'selected' : ''}`}
                     >
                       {city.name}
                     </button>
@@ -178,24 +191,16 @@ const ChartFromDataJson = () => {
                   style={{ padding: 8, fontSize: 16 }}
                 >
                   {cityList.map(city => (
-                    <option key={city.id} value={city.id}>{city.name}</option>
+                    <option key={city.key} value={city.key}>{city.name}</option>
                   ))}
                 </select>
               </div>
             )}
             
-            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 150 }}>
-              <label style={{ marginBottom: 5, fontWeight: 700 }}>Chart Type:</label>
-              <select style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }} value={chartType} onChange={e => setChartType(e.target.value)}>
-                <option value="bar">Bar</option>
-                <option value="pie">Pie</option>
-                <option value="doughnut">Doughnut</option>
-              </select>
-            </div>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
-            <section>
+          <div className="two-col-charts">
+            <section className="chart-card">
               <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
               <ChartSwitcher
                 view={view}
@@ -204,7 +209,7 @@ const ChartFromDataJson = () => {
                 viewLabel={'Bookings'}
               />
             </section>
-            <section>
+            <section className="chart-card">
               <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Census by Race</h2>
               <ChartSwitcher
                 view={view}
@@ -232,10 +237,11 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
   }));
   // Media query for responsive label decisions
   const isMobile = window.matchMedia('(max-width: 767px)').matches;
+  const isTwoCol = window.matchMedia('(min-width: 600px)').matches; // matches our CSS breakpoint
 
   if (chartType === 'bar') {
     const maxVal = counts.length ? Math.max(...counts) : 0;
-    const suggestedMax = Math.ceil(maxVal * 1.12); // headroom for labels above bars
+  const suggestedMax = Math.ceil(maxVal * 1.06); // tighter headroom for shorter height
     const data = {
       labels,
       datasets: [
@@ -275,27 +281,27 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
             const pct = percentages[i] ?? 0;
             return `${val} - ${pct}%`;
           },
-          font: { size: 11, weight: 'bold' },
+          font: { size: (isTwoCol || isMobile) ? 8 : 10, weight: 'bold' },
           anchor: 'end',
           align: 'top',
-          offset: 4,
+          offset: 1,
           clip: false,
         },
       },
       scales: {
         x: {
-          ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 },
+          ticks: { autoSkip: false, maxRotation: 20, minRotation: 0, font: { size: 10 } },
         },
         y: {
-          ticks: { callback: (v) => Number(v).toLocaleString() },
+          ticks: { callback: (v) => Number(v).toLocaleString(), font: { size: 10 } },
           beginAtZero: true,
           suggestedMax,
         },
       },
-      layout: { padding: { top: 18, bottom: 20 } },
+      layout: { padding: { top: 6, bottom: 8 } },
     };
     return (
-      <div style={{ width: '100%', height: '500px' }}>
+      <div style={{ width: '100%', height: isMobile ? '280px' : (isTwoCol ? '300px' : '400px') }}>
         <Bar data={data} options={options} />
       </div>
     );
@@ -330,7 +336,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
       },
       datalabels: {
         display: true,
-        color: '#112540',
+        color: '#ffffff',
         formatter: (value, context) => {
           const i = context.dataIndex;
           const race = labels[i] || '';
@@ -338,20 +344,20 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           const pct = percentages[i] ?? 0;
           return `${race}\n${val} - ${pct}%`;
         },
-        font: { size: isMobile ? 10 : 11, weight: 'bold' },
+        font: { size: (isMobile || isTwoCol) ? 10 : 12, weight: 'bold' },
         align: 'center',
         anchor: 'center',
         clip: false,
       },
     },
-    layout: { padding: 6 },
+    layout: { padding: 2 },
   };
 
   return (
     <div className="chart-row">
       <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ width: '100%', height: isMobile ? '400px' : '580px' }}>
+        <div style={{ width: '100%', height: isMobile ? '260px' : (isTwoCol ? '300px' : '440px') }}>
           {chartType === 'doughnut' ? (
             <Doughnut data={data} options={options} />
           ) : (
