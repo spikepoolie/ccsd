@@ -177,13 +177,24 @@ const ChartFromDataJson = () => {
                   <option key={item.key} value={item.key}>{item.label}</option>
                 ))}
               </select>
-              {/* Chart Type directly below Dashboard */}
-              <label style={{ margin: '12px 0 5px', fontWeight: 700 }}>Chart Type:</label>
-              <select style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }} value={chartType} onChange={e => setChartType(e.target.value)}>
-                <option value="bar">Bar</option>
-                <option value="pie">Pie</option>
-                <option value="doughnut">Doughnut</option>
-              </select>
+            </div>
+
+            {/* Chart Type pills to the right of the Select Dashboard dropdown */}
+            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
+              <label style={{ margin: '0 0 5px', fontWeight: 700 }}>Chart Type:</label>
+              <div className="chart-type-pills" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {['bar', 'pie', 'doughnut'].map(t => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setChartType(t)}
+                    className={`city-pill ${chartType === t ? 'selected' : ''}`}
+                    aria-pressed={chartType === t}
+                  >
+                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
             
             {/* City selector (applies to both charts) */}
