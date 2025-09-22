@@ -1,6 +1,5 @@
 {
   "bookings": [
-    
   {
     "id": "contra-costa",
     "city": "Contra Costa County",
@@ -8,7 +7,8 @@
     "totalBookings": 606,
     "percentage": 0,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -17,7 +17,8 @@
     "totalBookings": 606,
     "percentage": 2,
     "bookings": 11,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -26,7 +27,8 @@
     "totalBookings": 606,
     "percentage": 32,
     "bookings": 196,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -35,7 +37,8 @@
     "totalBookings": 606,
     "percentage": 31,
     "bookings": 184,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -44,7 +47,8 @@
     "totalBookings": 606,
     "percentage": 4,
     "bookings": 26,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -53,7 +57,8 @@
     "totalBookings": 606,
     "percentage": 31,
     "bookings": 188,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -62,7 +67,8 @@
     "totalBookings": 33,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -71,7 +77,8 @@
     "totalBookings": 33,
     "percentage": 3,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -80,7 +87,8 @@
     "totalBookings": 33,
     "percentage": 9,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -89,7 +97,8 @@
     "totalBookings": 33,
     "percentage": 24,
     "bookings": 8,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -98,7 +107,8 @@
     "totalBookings": 33,
     "percentage": 15,
     "bookings": 5,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -107,7 +117,8 @@
     "totalBookings": 33,
     "percentage": 49,
     "bookings": 16,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -116,7 +127,8 @@
     "totalBookings": 54,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -125,7 +137,8 @@
     "totalBookings": 54,
     "percentage": 4,
     "bookings": 2,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -134,7 +147,8 @@
     "totalBookings": 54,
     "percentage": 24,
     "bookings": 13,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -143,7 +157,8 @@
     "totalBookings": 54,
     "percentage": 13,
     "bookings": 7,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -152,7 +167,8 @@
     "totalBookings": 54,
     "percentage": 5,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -161,7 +177,8 @@
     "totalBookings": 54,
     "percentage": 54,
     "bookings": 29,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -170,7 +187,8 @@
     "totalBookings": 48,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -179,7 +197,8 @@
     "totalBookings": 48,
     "percentage": 6,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -188,7 +207,8 @@
     "totalBookings": 48,
     "percentage": 11,
     "bookings": 5,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -197,7 +217,8 @@
     "totalBookings": 48,
     "percentage": 40,
     "bookings": 19,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -206,7 +227,8 @@
     "totalBookings": 48,
     "percentage": 8,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -215,7 +237,8 @@
     "totalBookings": 48,
     "percentage": 35,
     "bookings": 17,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -224,7 +247,8 @@
     "totalBookings": 325,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -233,7 +257,8 @@
     "totalBookings": 325,
     "percentage": 1,
     "bookings": 5,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -242,7 +267,8 @@
     "totalBookings": 325,
     "percentage": 46,
     "bookings": 150,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -251,7 +277,8 @@
     "totalBookings": 325,
     "percentage": 27,
     "bookings": 87,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -260,7 +287,8 @@
     "totalBookings": 325,
     "percentage": 5,
     "bookings": 15,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -269,7 +297,8 @@
     "totalBookings": 325,
     "percentage": 21,
     "bookings": 68,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -278,7 +307,8 @@
     "totalBookings": 198,
     "percentage": 1,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -287,7 +317,8 @@
     "totalBookings": 198,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -296,7 +327,8 @@
     "totalBookings": 198,
     "percentage": 29,
     "bookings": 58,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -305,7 +337,8 @@
     "totalBookings": 198,
     "percentage": 32,
     "bookings": 63,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -314,7 +347,8 @@
     "totalBookings": 198,
     "percentage": 5,
     "bookings": 10,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -323,7 +357,8 @@
     "totalBookings": 198,
     "percentage": 33,
     "bookings": 66,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -332,7 +367,8 @@
     "totalBookings": 12,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -341,7 +377,8 @@
     "totalBookings": 12,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -350,7 +387,8 @@
     "totalBookings": 12,
     "percentage": 25,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",  
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -359,7 +397,8 @@
     "totalBookings": 12,
     "percentage": 17,
     "bookings": 2,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -368,7 +407,8 @@
     "totalBookings": 12,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -377,7 +417,8 @@
     "totalBookings": 12,
     "percentage": 58,
     "bookings": 7,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "Concord",
@@ -386,7 +427,8 @@
     "totalBookings": 406,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -395,7 +437,8 @@
     "totalBookings": 406,
     "percentage": 1,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -404,7 +447,8 @@
     "totalBookings": 406,
     "percentage": 18,
     "bookings": 75,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -413,7 +457,8 @@
     "totalBookings": 406,
     "percentage": 19,
     "bookings": 159,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -422,7 +467,8 @@
     "totalBookings": 406,
     "percentage": 10,
     "bookings": 39,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -431,7 +477,8 @@
     "totalBookings": 406,
     "percentage": 32,
     "bookings": 129,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
 
   {
@@ -441,7 +488,8 @@
     "totalBookings": 77,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -450,7 +498,8 @@
     "totalBookings": 77,
     "percentage": 5,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -459,7 +508,8 @@
     "totalBookings": 77,
     "percentage": 46,
     "bookings": 35,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -468,7 +518,8 @@
     "totalBookings": 77,
     "percentage": 31,
     "bookings": 24,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -477,7 +528,8 @@
     "totalBookings": 77,
     "percentage": 5,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -486,7 +538,8 @@
     "totalBookings": 77,
     "percentage": 13,
     "bookings": 10,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -495,7 +548,8 @@
     "totalBookings": 58,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -504,7 +558,8 @@
     "totalBookings": 58,
     "percentage": 5,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -513,7 +568,8 @@
     "totalBookings": 58,
     "percentage": 47,
     "bookings": 27,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -522,7 +578,8 @@
     "totalBookings": 58,
     "percentage": 22,
     "bookings": 13,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -531,7 +588,8 @@
     "totalBookings": 58,
     "percentage": 7,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules-pd",
@@ -540,7 +598,8 @@
     "totalBookings": 58,
     "percentage": 19,
     "bookings": 11,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -549,7 +608,8 @@
     "totalBookings": 115,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -558,7 +618,8 @@
     "totalBookings": 115,
     "percentage": 1,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -567,7 +628,8 @@
     "totalBookings": 115,
     "percentage": 18,
     "bookings": 21,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -576,7 +638,8 @@
     "totalBookings": 115,
     "percentage": 16,
     "bookings": 18,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -585,7 +648,8 @@
     "totalBookings": 115,
     "percentage": 8,
     "bookings": 9,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez-pd",
@@ -594,7 +658,8 @@
     "totalBookings": 115,
     "percentage": 57,
     "bookings": 66,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
 
   {
@@ -604,7 +669,8 @@
     "totalBookings": 14,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga-pd",
@@ -613,7 +679,8 @@
     "totalBookings": 14,
     "percentage": 7,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga-pd",
@@ -622,7 +689,8 @@
     "totalBookings": 14,
     "percentage": 14,
     "bookings": 2,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga-pd",
@@ -631,7 +699,8 @@
     "totalBookings": 14,
     "percentage": 22,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga-pd",
@@ -640,7 +709,8 @@
     "totalBookings": 14,
     "percentage": 7,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga-pd",
@@ -649,7 +719,8 @@
     "totalBookings": 14,
     "percentage": 50,
     "bookings": 7,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -658,7 +729,8 @@
     "totalBookings": 84,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -667,7 +739,8 @@
     "totalBookings": 84,
     "percentage": 1,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -676,7 +749,8 @@
     "totalBookings": 84,
     "percentage": 33,
     "bookings": 28,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -685,7 +759,8 @@
     "totalBookings": 84,
     "percentage": 29,
     "bookings": 24,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -694,7 +769,8 @@
     "totalBookings": 84,
     "percentage": 1,
     "bookings": 1,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley-pd",
@@ -703,7 +779,8 @@
     "totalBookings": 84,
     "percentage": 36,
     "bookings": 30,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
 
   {
@@ -713,7 +790,8 @@
     "totalBookings": 59,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole-pd",
@@ -722,7 +800,8 @@
     "totalBookings": 59,
     "percentage": 5,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole-pd",
@@ -731,7 +810,8 @@
     "totalBookings": 59,
     "percentage": 42,
     "bookings": 25,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole-pd",
@@ -740,7 +820,8 @@
     "totalBookings": 59,
     "percentage": 24,
     "bookings": 14,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole-pd",
@@ -749,7 +830,8 @@
     "totalBookings": 59,
     "percentage": 10,
     "bookings": 6,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole-pd",
@@ -758,7 +840,8 @@
     "totalBookings": 59,
     "percentage": 19,
     "bookings": 11,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -767,7 +850,8 @@
     "totalBookings": 261,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -776,7 +860,8 @@
     "totalBookings": 261,
     "percentage": 1,
     "bookings": 3,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -785,7 +870,8 @@
     "totalBookings": 261,
     "percentage": 52,
     "bookings": 135,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -794,7 +880,8 @@
     "totalBookings": 261,
     "percentage": 30,
     "bookings": 78,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -803,7 +890,8 @@
     "totalBookings": 261,
     "percentage": 3,
     "bookings": 9,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg-pd",
@@ -812,7 +900,8 @@
     "totalBookings": 261,
     "percentage": 14,
     "bookings": 36,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
 
   {
@@ -822,7 +911,8 @@
     "totalBookings": 110,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill-pd",
@@ -831,7 +921,8 @@
     "totalBookings": 110,
     "percentage": 5,
     "bookings": 6,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill-pd",
@@ -840,7 +931,8 @@
     "totalBookings": 110,
     "percentage": 22,
     "bookings": 24,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill-pd",
@@ -849,7 +941,8 @@
     "totalBookings": 110,
     "percentage": 31,
     "bookings": 34,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill-pd",
@@ -858,7 +951,8 @@
     "totalBookings": 110,
     "percentage": 9,
     "bookings": 10,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill-pd",
@@ -867,7 +961,8 @@
     "totalBookings": 110,
     "percentage": 33,
     "bookings": 36,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -876,7 +971,8 @@
     "totalBookings": 325,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -885,7 +981,8 @@
     "totalBookings": 325,
     "percentage": 1,
     "bookings": 2,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -894,7 +991,8 @@
     "totalBookings": 325,
     "percentage": 44,
     "bookings": 145,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -903,7 +1001,8 @@
     "totalBookings": 325,
     "percentage": 42,
     "bookings": 136,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -912,7 +1011,8 @@
     "totalBookings": 325,
     "percentage": 6,
     "bookings": 19,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond-pd",
@@ -921,7 +1021,8 @@
     "totalBookings": 325,
     "percentage": 7,
     "bookings": 23,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
 
   {
@@ -940,7 +1041,8 @@
     "totalBookings": 286,
     "percentage": 3,
     "bookings": 8,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo-pd",
@@ -949,7 +1051,8 @@
     "totalBookings": 286,
     "percentage": 33,
     "bookings": 93,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo-pd",
@@ -958,7 +1061,8 @@
     "totalBookings": 286,
     "percentage": 41,
     "bookings": 118,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo-pd",
@@ -967,7 +1071,8 @@
     "totalBookings": 286,
     "percentage": 7,
     "bookings": 20,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo-pd",
@@ -976,7 +1081,8 @@
     "totalBookings": 286,
     "percentage": 16,
     "bookings": 47,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -985,7 +1091,8 @@
     "totalBookings": 91,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -994,7 +1101,8 @@
     "totalBookings": 91,
     "percentage": 4,
     "bookings": 4,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -1003,7 +1111,8 @@
     "totalBookings": 91,
     "percentage": 21,
     "bookings": 19,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -1012,7 +1121,8 @@
     "totalBookings": 91,
     "percentage": 24,
     "bookings": 22,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -1021,7 +1131,8 @@
     "totalBookings": 91,
     "percentage": 19,
     "bookings": 17,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon-pd",
@@ -1030,7 +1141,8 @@
     "totalBookings": 91,
     "percentage": 32,
     "bookings": 29,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1039,7 +1151,8 @@
     "totalBookings": 209,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1048,7 +1161,8 @@
     "totalBookings": 209,
     "percentage": 2,
     "bookings": 5,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1057,7 +1171,8 @@
     "totalBookings": 209,
     "percentage": 20,
     "bookings": 42,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1066,7 +1181,8 @@
     "totalBookings": 209,
     "percentage": 21,
     "bookings": 44,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1075,7 +1191,8 @@
     "totalBookings": 209,
     "percentage": 9,
     "bookings": 18,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek-pd",
@@ -1084,7 +1201,248 @@
     "totalBookings": 209,
     "percentage": 48,
     "bookings": 100,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "American Indian",
+    "totalBookings": 1,
+    "percentage": 1,
+    "bookings": 122,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "Asian",
+    "totalBookings": 1,
+    "percentage": 1,
+    "bookings": 122,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "Black",
+    "totalBookings": 122,
+    "percentage": 48,
+    "bookings": 59,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "Hispanic",
+    "totalBookings": 122,
+    "percentage": 13,
+    "bookings": 16,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "Unknown",
+    "totalBookings": 122,
+    "percentage": 9,
+    "bookings": 11,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "bart-pd",
+    "city": "Bart PD",
+    "race": "White",
+    "totalBookings": 122,
+    "percentage": 28,
+    "bookings": 34,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "American Indian",
+    "totalBookings": 29,
+    "percentage": 0,
+    "bookings": 0,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "Asian",
+    "totalBookings": 29,
+    "percentage": 0,
+    "bookings": 0,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "Black",
+    "totalBookings": 29,
+    "percentage": 38,
+    "bookings": 11,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "Hispanic",
+    "totalBookings": 29,
+    "percentage": 38,
+    "bookings": 11,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "Unknown",
+    "totalBookings": 29,
+    "percentage": 3,
+    "bookings": 1,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ccc-Probation",
+    "city": "CCC Probation",
+    "race": "White",
+    "totalBookings": 29,
+    "percentage": 21,
+    "bookings": 6,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "American Indian",
+    "totalBookings": 0,
+    "percentage": 0,
+    "bookings": 240,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "Asian",
+    "totalBookings": 1,
+    "percentage": 6,
+    "bookings": 17,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "Black",
+    "totalBookings": 240,
+    "percentage": 27,
+    "bookings": 74,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "Hispanic",
+    "totalBookings": 240,
+    "percentage": 46,
+    "bookings": 125,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "Unknown",
+    "totalBookings": 240,
+    "percentage": 7,
+    "bookings": 19,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "CHP",
+    "city": "CHP",
+    "race": "White",
+    "totalBookings": 240,
+    "percentage": 14,
+    "bookings": 39,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "American Indian",
+    "totalBookings": 14,
+    "percentage": 0,
+    "bookings": 0,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "Asian",
+    "totalBookings": 14,
+    "percentage": 7,
+    "bookings": 1,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "Black",
+    "totalBookings": 14,
+    "percentage": 7,
+    "bookings": 1,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "Hispanic",
+    "totalBookings": 14,
+    "percentage": 64,
+    "bookings": 9,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "Unknown",
+    "totalBookings": 14,
+    "percentage": 0,
+    "bookings": 0,
+    "type": "Booking By Race",
+    "hasCensus": false
+  },
+  {
+    "id": "ebrp-pd",
+    "city": "EBRP PD",
+    "race": "White",
+    "totalBookings": 14,
+    "percentage": 22,
+    "bookings": 3,
+    "type": "Booking By Race",
+    "hasCensus": false
   }],
   "census-bookings": [
   {
@@ -1094,7 +1452,8 @@
     "totalBookings": 1165927,
     "percentage": 0,
     "bookings": 2553,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -1103,7 +1462,8 @@
     "totalBookings": 1165927,
     "percentage": 19,
     "bookings": 220240,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -1112,7 +1472,8 @@
     "totalBookings": 1165927,
     "percentage": 8,
     "bookings": 97994,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -1121,7 +1482,8 @@
     "totalBookings": 1165927,
     "percentage": 27,
     "bookings": 314900,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -1130,7 +1492,8 @@
     "totalBookings": 1165927,
     "percentage": 7,
     "bookings": 74819,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -1139,7 +1502,8 @@
     "totalBookings": 1165927,
     "percentage": 39,
     "bookings": 455421,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1148,7 +1512,8 @@
     "totalBookings": 43582,
     "percentage": 0,
     "bookings": 59,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1157,7 +1522,8 @@
     "totalBookings": 43582,
     "percentage": 15,
     "bookings": 6582,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1166,7 +1532,8 @@
     "totalBookings": 43582,
     "percentage": 1,
     "bookings": 380,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1175,7 +1542,8 @@
     "totalBookings": 43582,
     "percentage": 9,
     "bookings": 3952,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1184,7 +1552,8 @@
     "totalBookings": 43582,
     "percentage": 6,
     "bookings": 2790,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "danville",
@@ -1193,7 +1562,8 @@
     "totalBookings": 43582,
     "percentage": 69,
     "bookings": 29819,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1202,7 +1572,8 @@
     "totalBookings": 25391,
     "percentage": 0,
     "bookings": 24,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1211,7 +1582,8 @@
     "totalBookings": 25391,
     "percentage": 12,
     "bookings": 3179,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1220,7 +1592,8 @@
     "totalBookings": 25391,
     "percentage": 1,
     "bookings": 170,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1229,7 +1602,8 @@
     "totalBookings": 25391,
     "percentage": 8,
     "bookings": 2075,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1238,7 +1612,8 @@
     "totalBookings": 25391,
     "percentage": 8,
     "bookings": 1993,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "lafayette",
@@ -1247,7 +1622,8 @@
     "totalBookings": 25391,
     "percentage": 71,
     "bookings": 17950,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1256,7 +1632,8 @@
     "totalBookings": 19514,
     "percentage": 0,
     "bookings": 17,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1265,7 +1642,8 @@
     "totalBookings": 19514,
     "percentage": 17,
     "bookings": 3404,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1274,7 +1652,8 @@
     "totalBookings": 19514,
     "percentage": 1,
     "bookings": 188,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1283,7 +1662,8 @@
     "totalBookings": 19514,
     "percentage": 7,
     "bookings": 1285,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1292,7 +1672,8 @@
     "totalBookings": 19514,
     "percentage": 8,
     "bookings": 1523,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "orinda",
@@ -1301,7 +1682,8 @@
     "totalBookings": 19514,
     "percentage": 67,
     "bookings": 13097,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1310,7 +1692,8 @@
     "totalBookings": 115291,
     "percentage": 0,
     "bookings": 419,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1319,7 +1702,8 @@
     "totalBookings": 115291,
     "percentage": 14,
     "bookings": 16007,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1328,7 +1712,8 @@
     "totalBookings": 115291,
     "percentage": 20,
     "bookings": 23271,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1337,7 +1722,8 @@
     "totalBookings": 115291,
     "percentage": 37,
     "bookings": 41965,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1346,7 +1732,8 @@
     "totalBookings": 115291,
     "percentage": 6,
     "bookings": 7075,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "antioch",
@@ -1355,7 +1742,8 @@
     "totalBookings": 115291,
     "percentage": 23,
     "bookings": 26554,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
 
   {
@@ -1365,7 +1753,8 @@
     "totalBookings": 64292,
     "percentage": 0,
     "bookings": 161,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -1374,7 +1763,8 @@
     "totalBookings": 64292,
     "percentage": 13,
     "bookings": 8695,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -1383,7 +1773,8 @@
     "totalBookings": 64292,
     "percentage": 7,
     "bookings": 4230,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -1392,7 +1783,8 @@
     "totalBookings": 64292,
     "percentage": 27,
     "bookings": 17121,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -1401,7 +1793,8 @@
     "totalBookings": 64292,
     "percentage": 7,
     "bookings": 4598,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "brentwood",
@@ -1410,7 +1803,8 @@
     "totalBookings": 64292,
     "percentage": 46,
     "bookings": 29487,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
 {
     "id": "clayton",
@@ -1419,7 +1813,8 @@
     "totalBookings": 11070,
     "percentage": 0,
     "bookings": 17,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -1428,7 +1823,8 @@
     "totalBookings": 11070,
     "percentage": 9,
     "bookings": 1028,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -1437,7 +1833,8 @@
     "totalBookings": 11070,
     "percentage": 2,
     "bookings": 172,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -1446,7 +1843,8 @@
     "totalBookings": 11070,
     "percentage": 11,
     "bookings": 1242,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -1455,7 +1853,8 @@
     "totalBookings": 11070,
     "percentage": 8,
     "bookings": 829,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "clayton",
@@ -1464,7 +1863,8 @@
     "totalBookings": 11070,
     "percentage": 70,
     "bookings": 7782,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
 
   {
@@ -1474,7 +1874,8 @@
     "totalBookings": 125410,
     "percentage": 0,
     "bookings": 295,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -1483,7 +1884,8 @@
     "totalBookings": 125410,
     "percentage": 15,
     "bookings": 19079,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -1492,7 +1894,8 @@
     "totalBookings": 125410,
     "percentage": 4,
     "bookings": 4532,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -1501,7 +1904,8 @@
     "totalBookings": 125410,
     "percentage": 31,
     "bookings": 38953,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -1510,7 +1914,8 @@
     "totalBookings": 125410,
     "percentage": 7,
     "bookings": 8447,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "concord",
@@ -1519,7 +1924,8 @@
     "totalBookings": 125410,
     "percentage": 43,
     "bookings": 54104,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1528,7 +1934,8 @@
     "totalBookings": 25962,
     "percentage": 0,
     "bookings": 25,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1537,7 +1944,8 @@
     "totalBookings": 25962,
     "percentage": 30,
     "bookings": 7752,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1546,7 +1954,8 @@
     "totalBookings": 25962,
     "percentage": 5,
     "bookings": 1387,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1555,7 +1964,8 @@
     "totalBookings": 25962,
     "percentage": 12,
     "bookings": 3075,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1564,7 +1974,8 @@
     "totalBookings": 25962,
     "percentage": 9,
     "bookings": 2256,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "el-cerrito",
@@ -1573,7 +1984,8 @@
     "totalBookings": 25962,
     "percentage": 44,
     "bookings": 11467,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1582,7 +1994,8 @@
     "totalBookings": 26016,
     "percentage": 0,
     "bookings": 27,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1591,7 +2004,8 @@
     "totalBookings": 26016,
     "percentage": 47,
     "bookings": 12178,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1600,7 +2014,8 @@
     "totalBookings": 26016,
     "percentage": 16,
     "bookings": 4084,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1609,7 +2024,8 @@
     "totalBookings": 26016,
     "percentage": 16,
     "bookings": 4320,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1618,7 +2034,8 @@
     "totalBookings": 26016,
     "percentage": 7,
     "bookings": 1719,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "hercules",
@@ -1627,7 +2044,8 @@
     "totalBookings": 26016,
     "percentage": 14,
     "bookings": 3688,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1636,7 +2054,8 @@
     "totalBookings": 37287,
     "percentage": 0,
     "bookings": 92,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1645,7 +2064,8 @@
     "totalBookings": 37287,
     "percentage": 10,
     "bookings": 3852,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1654,7 +2074,8 @@
     "totalBookings": 37287,
     "percentage": 4,
     "bookings": 1314,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1663,7 +2084,8 @@
     "totalBookings": 37287,
     "percentage": 18,
     "bookings": 6670,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1672,7 +2094,8 @@
     "totalBookings": 37287,
     "percentage": 8,
     "bookings": 2801,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "martinez",
@@ -1681,7 +2104,8 @@
     "totalBookings": 37287,
     "percentage": 60,
     "bookings": 22558,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1690,7 +2114,8 @@
     "totalBookings": 16870,
     "percentage": 0,
     "bookings": 13,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1699,7 +2124,8 @@
     "totalBookings": 16870,
     "percentage": 19,
     "bookings": 3143,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1708,7 +2134,8 @@
     "totalBookings": 16870,
     "percentage": 1,
     "bookings": 197,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1717,7 +2144,8 @@
     "totalBookings": 16870,
     "percentage": 10,
     "bookings": 1652,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1726,7 +2154,8 @@
     "totalBookings": 16870,
     "percentage": 8,
     "bookings": 1425,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "moraga",
@@ -1735,7 +2164,8 @@
     "totalBookings": 16870,
     "percentage": 62,
     "bookings": 10440,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
     {
     "id": "oakley",
@@ -1744,7 +2174,8 @@
     "totalBookings": 43357,
     "percentage": 0,
     "bookings": 115,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley",
@@ -1753,7 +2184,8 @@
     "totalBookings": 43357,
     "percentage": 10,
     "bookings": 4209,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley",
@@ -1762,7 +2194,8 @@
     "totalBookings": 43357,
     "percentage": 8,
     "bookings": 3447,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley",
@@ -1771,7 +2204,8 @@
     "totalBookings": 43357,
     "percentage": 37,
     "bookings": 15928,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley",
@@ -1780,7 +2214,8 @@
     "totalBookings": 43357,
     "percentage": 7,
     "bookings": 2947,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "oakley",
@@ -1789,7 +2224,8 @@
     "totalBookings": 43357,
     "percentage": 38,
     "bookings": 16711,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
 
   {
@@ -1799,7 +2235,8 @@
     "totalBookings": 19022,
     "percentage": 0,
     "bookings": 63,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole",
@@ -1808,7 +2245,8 @@
     "totalBookings": 19022,
     "percentage": 26,
     "bookings": 4884,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole",
@@ -1817,7 +2255,8 @@
     "totalBookings": 19022,
     "percentage": 11,
     "bookings": 2050,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole",
@@ -1826,7 +2265,8 @@
     "totalBookings": 19022,
     "percentage": 27,
     "bookings": 5093,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole",
@@ -1835,7 +2275,8 @@
     "totalBookings": 19022,
     "percentage": 7,
     "bookings": 1377,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pinole",
@@ -1844,7 +2285,8 @@
     "totalBookings": 19022,
     "percentage": 29,
     "bookings": 5555,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1853,7 +2295,8 @@
     "totalBookings": 76416,
     "percentage": 0,
     "bookings": 218,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1862,7 +2305,8 @@
     "totalBookings": 76416,
     "percentage": 21,
     "bookings": 15550,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1871,7 +2315,8 @@
     "totalBookings": 76416,
     "percentage": 16,
     "bookings": 12441,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1880,7 +2325,8 @@
     "totalBookings": 76416,
     "percentage": 42,
     "bookings": 32300,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1889,7 +2335,8 @@
     "totalBookings": 76416,
     "percentage": 5,
     "bookings": 4019,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pittsburg",
@@ -1898,7 +2345,8 @@
     "totalBookings": 76416,
     "percentage": 16,
     "bookings": 11888,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1907,7 +2355,8 @@
     "totalBookings": 34613,
     "percentage": 0,
     "bookings": 90,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1916,7 +2365,8 @@
     "totalBookings": 34613,
     "percentage": 15,
     "bookings": 5343,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1925,7 +2375,8 @@
     "totalBookings": 34613,
     "percentage": 3,
     "bookings": 872,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1934,7 +2385,8 @@
     "totalBookings": 34613,
     "percentage": 14,
     "bookings": 4957,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1943,7 +2395,8 @@
     "totalBookings": 34613,
     "percentage": 8,
     "bookings": 2635,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "pleasant-hill",
@@ -1952,7 +2405,8 @@
     "totalBookings": 34613,
     "percentage": 60,
     "bookings": 20716,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
    {
     "id": "richmond",
@@ -1961,7 +2415,8 @@
     "totalBookings": 116448,
     "percentage": 0,
     "bookings": 266,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond",
@@ -1970,7 +2425,8 @@
     "totalBookings": 116448,
     "percentage": 15,
     "bookings": 17069,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond",
@@ -1979,7 +2435,8 @@
     "totalBookings": 116448,
     "percentage": 19,
     "bookings": 21753,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond",
@@ -1988,7 +2445,8 @@
     "totalBookings": 116448,
     "percentage": 45,
     "bookings": 51912,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond",
@@ -1997,7 +2455,8 @@
     "totalBookings": 116448,
     "percentage": 5,
     "bookings": 6463,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "richmond",
@@ -2006,7 +2465,8 @@
     "totalBookings": 116448,
     "percentage": 16,
     "bookings": 18985,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2015,7 +2475,8 @@
     "totalBookings": 32127,
     "percentage": 0,
     "bookings": 49,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2024,7 +2485,8 @@
     "totalBookings": 32127,
     "percentage": 16,
     "bookings": 5051,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2033,7 +2495,8 @@
     "totalBookings": 32127,
     "percentage": 12,
     "bookings": 3874,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2042,7 +2505,8 @@
     "totalBookings": 32127,
     "percentage": 61,
     "bookings": 19610,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2051,7 +2515,8 @@
     "totalBookings": 32127,
     "percentage": 3,
     "bookings": 1111,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-pablo",
@@ -2060,7 +2525,8 @@
     "totalBookings": 32127,
     "percentage": 8,
     "bookings": 2432,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2069,7 +2535,8 @@
     "totalBookings": 84605,
     "percentage": 0,
     "bookings": 100,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2078,7 +2545,8 @@
     "totalBookings": 84605,
     "percentage": 51,
     "bookings": 43226,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2087,7 +2555,8 @@
     "totalBookings": 84605,
     "percentage": 3,
     "bookings": 2113,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2096,7 +2565,8 @@
     "totalBookings": 84605,
     "percentage": 8,
     "bookings": 7102,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2105,7 +2575,8 @@
     "totalBookings": 84605,
     "percentage": 6,
     "bookings": 4924,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "san-ramon",
@@ -2114,7 +2585,8 @@
     "totalBookings": 84605,
     "percentage": 32,
     "bookings": 27140,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2123,7 +2595,8 @@
     "totalBookings": 70127,
     "percentage": 0,
     "bookings": 81,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2132,7 +2605,8 @@
     "totalBookings": 70127,
     "percentage": 17,
     "bookings": 11641,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2141,7 +2615,8 @@
     "totalBookings": 70127,
     "percentage": 2,
     "bookings": 1477,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2150,7 +2625,8 @@
     "totalBookings": 70127,
     "percentage": 10,
     "bookings": 7304,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2159,7 +2635,8 @@
     "totalBookings": 70127,
     "percentage": 7,
     "bookings": 4702,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   },
   {
     "id": "walnut-creek",
@@ -2168,229 +2645,11 @@
     "totalBookings": 70127,
     "percentage": 64,
     "bookings": 44922,
-    "type": "Census By Race"
+    "type": "Census By Race",
+    "hasCensus": true
   }
   ],
-  "arrests": [
-    {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "American Indian",
-    "totalBookings": 122,
-    "percentage": 1,
-    "bookings": 1,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "Asian",
-    "totalBookings": 122,
-    "percentage": 1,
-    "bookings": 1,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "Black",
-    "totalBookings": 122,
-    "percentage": 48,
-    "bookings": 59,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "Hispanic",
-    "totalBookings": 122,
-    "percentage": 13,
-    "bookings": 16,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "Unknown",
-    "totalBookings": 122,
-    "percentage": 9,
-    "bookings": 11,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "bart-pd",
-    "city": "BART ",
-    "race": "White",
-    "totalBookings": 122,
-    "percentage": 28,
-    "bookings": 34,
-    "type": "Booking By Race"
-  },
-
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "American Indian",
-    "totalBookings": 274,
-    "percentage": 0,
-    "bookings": 0,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "Asian",
-    "totalBookings": 274,
-    "percentage": 6,
-    "bookings": 17,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "Black",
-    "totalBookings": 274,
-    "percentage": 27,
-    "bookings": 74,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "Hispanic",
-    "totalBookings": 274,
-    "percentage": 46,
-    "bookings": 125,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "Unknown",
-    "totalBookings": 274,
-    "percentage": 7,
-    "bookings": 19,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "chp",
-    "city": "CHP",
-    "race": "White",
-    "totalBookings": 274,
-    "percentage": 14,
-    "bookings": 39,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "American Indian",
-    "totalBookings": 29,
-    "percentage": 0,
-    "bookings": 0,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "Asian",
-    "totalBookings": 29,
-    "percentage": 0,
-    "bookings": 0,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "Black",
-    "totalBookings": 29,
-    "percentage": 38,
-    "bookings": 11,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "Hispanic",
-    "totalBookings": 29,
-    "percentage": 38,
-    "bookings": 11,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "Unknown",
-    "totalBookings": 29,
-    "percentage": 3,
-    "bookings": 1,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ccc-probation",
-    "city": "CCC Probation",
-    "race": "White",
-    "totalBookings": 29,
-    "percentage": 21,
-    "bookings": 6,
-    "type": "Booking By Race"
-  },
-
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "American Indian",
-    "totalBookings": 14,
-    "percentage": 0,
-    "bookings": 0,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "Asian",
-    "totalBookings": 14,
-    "percentage": 7,
-    "bookings": 1,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "Black",
-    "totalBookings": 14,
-    "percentage": 7,
-    "bookings": 1,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "Hispanic",
-    "totalBookings": 14,
-    "percentage": 64,
-    "bookings": 9,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "Unknown",
-    "totalBookings": 14,
-    "percentage": 0,
-    "bookings": 0,
-    "type": "Booking By Race"
-  },
-  {
-    "id": "ebrp-pd",
-    "city": "EBRP ",
-    "race": "White",
-    "totalBookings": 14,
-    "percentage": 22,
-    "bookings": 3,
-    "type": "Booking By Race"
-  }
-  ],
+  
     "felone-race": [
     {
     "id": "contra-costa",
@@ -2399,7 +2658,8 @@
     "totalBookings": 606,
     "percentage": 0,
     "bookings": 0,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -2408,7 +2668,8 @@
     "totalBookings": 606,
     "percentage": 2,
     "bookings": 11,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -2417,7 +2678,8 @@
     "totalBookings": 606,
     "percentage": 41,
     "bookings": 249,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -2426,7 +2688,8 @@
     "totalBookings": 606,
     "percentage": 30,
     "bookings": 182,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -2435,7 +2698,8 @@
     "totalBookings": 606,
     "percentage": 4,
     "bookings": 25,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   },
   {
     "id": "contra-costa",
@@ -2444,7 +2708,8 @@
     "totalBookings": 606,
     "percentage": 23,
     "bookings": 139,
-    "type": "Booking By Race"
+    "type": "Booking By Race",
+    "hasCensus": true
   }
 ],
 "custody-alternative": [
