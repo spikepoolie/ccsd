@@ -323,7 +323,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
       layout: { padding: { top: 6, bottom: 8 } },
     };
     return (
-      <div style={{ width: '100%', height: isMobile ? '300px' : (isTwoCol ? '340px' : '440px') }}>
+      <div style={{ width: '100%', height: isMobile ? '320px' : (isTwoCol ? '380px' : '500px') }}>
         <Bar data={data} options={options} />
       </div>
     );
@@ -377,9 +377,8 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
 
   return (
     <div className="chart-row">
-      <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ width: '100%', height: isMobile ? '280px' : (isTwoCol ? '340px' : '480px') }}>
+        <div style={{ width: '100%', height: isMobile ? '300px' : (isTwoCol ? '380px' : '520px') }}>
           {chartType === 'doughnut' ? (
             <Doughnut data={data} options={options} />
           ) : (
@@ -387,6 +386,7 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           )}
         </div>
       </figure>
+      <CustomLegend data={chartData} chartType={chartType} />
     </div>
   );
 }

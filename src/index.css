@@ -22,24 +22,28 @@ code {
 .chart-row { display: flex; gap: 8px; align-items: flex-start; }
 .side-legend { display: none; }
 
-/* Increase legend spacing for tablet and desktop */
+/* Legend below charts on tablet/desktop: 2 columns x 3 rows grid (fixed narrow columns, centered) */
 @media (min-width: 768px) {
   .side-legend { 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px 14px; 
-    width: 100%;
+    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
+    grid-template-rows: repeat(3, auto);
+    gap: 12px 16px; 
+    width: auto;
+    max-width: 336px; /* 2 * 160 + 16 gap */
+    justify-content: center; /* center grid under chart */
+    margin-left: auto;
+    margin-right: auto;
   }
-  .legend-card {
-    padding: 12px 14px;
-  }
+  .legend-card { padding: 8px 10px; }
 }
 
 /* Tablet-specific adjustments */
 @media (min-width: 768px) and (max-width: 1023px) {
   .chart-row {
-    flex-direction: row;
+    flex-direction: column; /* chart above, legend below */
     gap: 12px;
+    align-items: center; /* center chart and legend inside the child */
   }
 }
 .chart-area { display: block; margin: 0; flex: 1 1 auto; min-width: 0; }
@@ -125,16 +129,18 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
 }
 
-/* Place legends on the left of each chart on tablet/desktop, single column */
+/* Legend container under each chart at tablet/desktop */
 @media (min-width: 768px) {
   #legend-container.side-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 122px;      /* tightened by additional 10px */
-    min-width: 110px;
-    max-width: 134px;
-    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
+    grid-template-rows: repeat(3, auto);
+    gap: 12px 16px; 
+    width: auto;
+    max-width: 336px; /* 2 * 160 + 16 gap */
+    justify-content: center; /* center grid under chart */
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -232,7 +238,6 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
 }
 
-/* Two column layout for the two main charts on tablet/desktop; stack on phones */
 .two-col-charts {
   display: grid;
   grid-template-columns: 1fr;
@@ -249,7 +254,7 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   .two-col-charts {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
-    column-gap: 12px;
+    column-gap: 24px; /* add more space between the two chart/legend groups */
     max-width: 100%;
   }
 }
@@ -257,8 +262,9 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 /* When charts are in two-column cards, stack chart then legend inside each card */
 @media (min-width: 1024px) {
   .two-col-charts .chart-row {
-    flex-direction: row;
+    flex-direction: column; /* chart above, legend below */
     gap: 12px;
+    align-items: center; /* center chart and legend inside the child */
   }
   .two-col-charts .chart-area.pie-chart,
   .two-col-charts .chart-area.doughnut-chart {
@@ -267,12 +273,17 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
     flex: 1 1 auto;
   }
   .two-col-charts #legend-container.side-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 122px;      /* tightened by additional 10px */
-    min-width: 110px;
-    max-width: 134px;
-    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
+    grid-template-rows: repeat(3, auto);
+    gap: 12px 16px;
+    width: max-content;
+    max-width: 336px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
   }
 }
+
+
