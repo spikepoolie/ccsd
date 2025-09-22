@@ -43,47 +43,48 @@ const CustomLegend = ({ data, chartType }) => {
 
 const ChartFromDataJson = () => {
   const [chartType, setChartType] = useState('bar');
-  const [view, setView] = useState('bookings');
+  const [view, setView] = useState('demographics'); // kept for UI compatibility; charts now show both datasets regardless
   const [drawerOpen, setDrawerOpen] = useState(false);
   
-  // Get data based on selected dashboard
-  const currentData = React.useMemo(() => {
-    if (view === 'census') {
-      return bookings['census-bookings'] || [];
-    }
-    return bookings.bookings || [];
-  }, [view]);
+  // Build stable city list using ids, and a display name for pills/dropdowns
+  const cityList = React.useMemo(() => {
+    const b = bookings.bookings || [];
+    const c = bookings['census-bookings'] || [];
+    const byId = new Map();
+    const upsert = (row) => {
+      if (!row || !row.id) return;
+      const name = (row.city || '').toString().replace(/\s+/g, ' ').trim();
+      const prev = byId.get(row.id) || { id: row.id, name };
+      // prefer a non-empty, trimmed name if available
+      const displayName = (prev.name && prev.name.length >= name.length) ? prev.name : name;
+      byId.set(row.id, { id: row.id, name: displayName });
+    };
+    b.forEach(upsert);
+    c.forEach(upsert);
+    return Array.from(byId.values()).sort((a, d) => a.name.localeCompare(d.name));
+  }, []);
+  const defaultCityId = (cityList.find(x => /contra\s*costa/i.test(x.name))?.id) || (cityList[0]?.id || '');
+  const [selectedCityId, setSelectedCityId] = useState(defaultCityId);
   
-  // Get unique cities from current data
-  const uniqueCities = React.useMemo(() => Array.from(new Set(currentData.map(b => b.city))), [currentData]);
-  const defaultCity = uniqueCities.includes('Contra Costa County') ? 'Contra Costa County' : 
-                     (uniqueCities.includes('Contra Costa') ? 'Contra Costa' : (uniqueCities[0] || ''));
-  const [selectedCity, setSelectedCity] = useState(defaultCity);
-  
-  // Build demographics dataset from current data for the selected city
-  const cityRows = React.useMemo(() => currentData.filter(b => b.city === selectedCity), [currentData, selectedCity]);
-  const labels = React.useMemo(() => cityRows.map(r => r.race), [cityRows]);
-  const counts = React.useMemo(() => cityRows.map(r => Number(r.bookings) || 0), [cityRows]);
-  const percentages = React.useMemo(() => cityRows.map(r => Number(r.percentage) || 0), [cityRows]);
-  const viewLabels = {
-    demographics: 'Demographics',
-    ice: 'ICE ACCESS INFORMATION',
-    arrests: 'Arrest Data by City of Residence',
-    adp: 'Average Daily Population',
-    requests: 'Total Requests made',
-  };
+  // Build datasets for the selected city from both sources
+  const bookingRows = React.useMemo(() => (bookings.bookings || []).filter(b => b.id === selectedCityId), [selectedCityId]);
+  const censusRows = React.useMemo(() => (bookings['census-bookings'] || []).filter(b => b.id === selectedCityId), [selectedCityId]);
 
-  const dashboards = [
-    { key: 'bookings', label: 'Persons Arrested/Booked' },
-    { key: 'census', label: 'Census Data' },
-  ]
+  const bLabels = React.useMemo(() => bookingRows.map(r => r.race), [bookingRows]);
+  const bCounts = React.useMemo(() => bookingRows.map(r => Number(r.bookings) || 0), [bookingRows]);
+  const bPercentages = React.useMemo(() => bookingRows.map(r => Number(r.percentage) || 0), [bookingRows]);
 
-  // Reset selected city when dashboard changes
+  const cLabels = React.useMemo(() => censusRows.map(r => r.race), [censusRows]);
+  const cCounts = React.useMemo(() => censusRows.map(r => Number(r.bookings) || 0), [censusRows]);
+  const cPercentages = React.useMemo(() => censusRows.map(r => Number(r.percentage) || 0), [censusRows]);
+  // Labels for SideDrawer views retained for future use
+
+  // Ensure selectedCity is valid if city list changes
   React.useEffect(() => {
-    const newDefaultCity = uniqueCities.includes('Contra Costa County') ? 'Contra Costa County' : 
-                          (uniqueCities.includes('Contra Costa') ? 'Contra Costa' : (uniqueCities[0] || ''));
-    setSelectedCity(newDefaultCity);
-  }, [view, uniqueCities]);
+    if (!cityList.some(x => x.id === selectedCityId)) {
+      setSelectedCityId(defaultCityId);
+    }
+  }, [cityList, selectedCityId, defaultCityId]);
 
   // Lock body scroll when the mobile drawer is open
   React.useEffect(() => {
@@ -141,7 +142,7 @@ const ChartFromDataJson = () => {
           onClose={() => setDrawerOpen(false)}
         />
         <main id="main" className="app-container" role="main" aria-live="polite" style={{ flex: '1 1 auto', minWidth: 0, margin: 0 }}>
-          {/* Dashboard and Chart Type selectors */}
+          {/* City and Chart Type selectors */}
           <div style={{ 
             display: 'flex', 
             gap: window.matchMedia('(max-width: 767px)').matches ? 12 : 24, 
@@ -150,34 +151,21 @@ const ChartFromDataJson = () => {
             marginBottom: 20, 
             flexWrap: 'wrap' 
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 220 }}>
-              <label htmlFor="viewSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Select Dashboard:</label>
-              <select
-                id="viewSelect"
-                style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }}
-                value={view}
-                onChange={(e) => setView(e.target.value)}
-              >
-                {dashboards.map(item => (
-                  <option key={item.key} value={item.key}>{item.label}</option>
-                ))}
-              </select>
-            </div>
             
-            {/* City selector moved here for better mobile dropdown positioning */}
-            {(view === 'bookings' || view === 'census') && (
+            {/* City selector (applies to both charts) */}
+            {true && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
                 <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Cities</h3>
                 
                 {/* Pills for tablet/desktop */}
                 <div className="city-pills-container">
-                  {uniqueCities.map(city => (
+                  {cityList.map(city => (
                     <button
-                      key={city}
-                      onClick={() => setSelectedCity(city)}
-                      className={`city-pill ${selectedCity === city ? 'selected' : ''}`}
+                      key={city.id}
+                      onClick={() => setSelectedCityId(city.id)}
+                      className={`city-pill ${selectedCityId === city.id ? 'selected' : ''}`}
                     >
-                      {city}
+                      {city.name}
                     </button>
                   ))}
                 </div>
@@ -185,12 +173,12 @@ const ChartFromDataJson = () => {
                 {/* Select dropdown for mobile */}
                 <select 
                   className="city-select-dropdown"
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
+                  value={selectedCityId}
+                  onChange={(e) => setSelectedCityId(e.target.value)}
                   style={{ padding: 8, fontSize: 16 }}
                 >
-                  {uniqueCities.map(city => (
-                    <option key={city} value={city}>{city}</option>
+                  {cityList.map(city => (
+                    <option key={city.id} value={city.id}>{city.name}</option>
                   ))}
                 </select>
               </div>
@@ -206,13 +194,25 @@ const ChartFromDataJson = () => {
             </div>
           </div>
           
-          <div style={{ minHeight: 560 }}>
-            <ChartSwitcher
-              view={view}
-              chartType={chartType}
-              demo={{ labels, counts, percentages }}
-              viewLabel={viewLabels[view] || view}
-            />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
+            <section>
+              <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
+              <ChartSwitcher
+                view={view}
+                chartType={chartType}
+                demo={{ labels: bLabels, counts: bCounts, percentages: bPercentages }}
+                viewLabel={'Bookings'}
+              />
+            </section>
+            <section>
+              <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#112540' }}>Census by Race</h2>
+              <ChartSwitcher
+                view={view}
+                chartType={chartType}
+                demo={{ labels: cLabels, counts: cCounts, percentages: cPercentages }}
+                viewLabel={'Census'}
+              />
+            </section>
           </div>
         </main>
         </div>
