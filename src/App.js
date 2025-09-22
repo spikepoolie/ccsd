@@ -333,8 +333,13 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
       layout: { padding: { top: 6, bottom: 8 } },
     };
     return (
-      <div style={{ width: '100%', height: isMobile ? '320px' : (isTwoCol ? '380px' : '500px') }}>
-        <Bar data={data} options={options} />
+      <div className="chart-row">
+        <figure className={`chart-area bar-chart`}>
+          <div style={{ width: '100%', height: isMobile ? '320px' : (isTwoCol ? '380px' : '500px') }}>
+            <Bar data={data} options={options} />
+          </div>
+        </figure>
+        <CustomLegend data={chartData} chartType={chartType} />
       </div>
     );
   }
@@ -367,8 +372,13 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           },
         },
       },
-  datalabels: {
-        display: !isMobile,
+      datalabels: {
+        display: (ctx) => {
+          if (isMobile) return false; // hide on phones
+          const i = ctx.dataIndex ?? 0;
+          const pct = percentages[i] ?? 0;
+          return pct >= 5; // hide very small slices to reduce clutter
+        },
         color: '#ffffff',
         formatter: (value, context) => {
           const i = context.dataIndex;
@@ -377,10 +387,11 @@ function ChartSwitcher({ view, chartType, demo, viewLabel }) {
           const pct = percentages[i] ?? 0;
           return `${race}\n${val} - ${pct}%`;
         },
-        // Increase non-bar chart label font sizes for better readability
-        font: { size: (isMobile || isTwoCol) ? 18 : 14, weight: '' },
-        align: 'center',
-        anchor: 'center',
+        // Make labels smaller and position toward the outer edge to reduce overlap
+        font: { size: isTwoCol ? 11 : 13, weight: 'bold' },
+        align: 'end',
+        anchor: 'end',
+        offset: 8,
         clip: false,
       },
     },
