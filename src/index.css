@@ -45,6 +45,12 @@ code {
     gap: 12px;
     align-items: center; /* center chart and legend inside the child */
   }
+  /* Force chart above legend using order */
+  .chart-row .chart-area,
+  .chart-row .chart-wrapper { order: 1; }
+  .chart-row .legend-grid.side-legend,
+  .chart-row .html-legend.legend-grid.side-legend,
+  .chart-row #legend-container.side-legend { order: 2; }
 }
 .chart-area { display: block; margin: 0; flex: 1 1 auto; min-width: 0; }
 
@@ -74,11 +80,11 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 /* Legends are now shown on all sizes; use responsive grid tweaks in responsive.css */
 .legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: auto; cursor: pointer; align-items: center; text-align: center; }
 .legend-card.is-hidden { opacity: 0.5; }
-.legend-top { display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: #222; text-align: center; }
+.legend-top { display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; color: #222; text-align: center; }
 .legend-bottom { display: flex; align-items: center; justify-content: center; }
 .legend-bottom.legend-stack { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 .legend-swatch { height: 10px; width: 54px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex: 0 0 auto; }
-.legend-value { font-size: 12px; color: #333; margin-left: 0; flex: 0 0 auto; text-align: center; }
+  .legend-value { font-size: 11px; color: #333; margin-left: 0; flex: 0 0 auto; text-align: center; }
 .legend-bottom.legend-stack .legend-value { margin-left: 0; text-align: center; }
 
 /* Ensure legend cards respect grid cell width */
@@ -122,18 +128,18 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
   
   .legend-top {
-    font-size: 11px;
+    font-size: 10px;
     justify-content: center;
     margin-bottom: 2px;
   }
   
   .legend-bottom {
     justify-content: center;
-    font-size: 10px;
+    font-size: 9px;
   }
   
   .legend-value {
-    font-size: 10px;
+    font-size: 9px;
     margin-left: 0;
     text-align: center;
   }
@@ -292,6 +298,12 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
     margin-right: auto;
     margin-top: 10px;
   }
+  /* Also enforce order on desktop */
+  .two-col-charts .chart-row .chart-area,
+  .two-col-charts .chart-row .chart-wrapper { order: 1; }
+  .two-col-charts .chart-row .legend-grid.side-legend,
+  .two-col-charts .chart-row .html-legend.legend-grid.side-legend,
+  .two-col-charts .chart-row #legend-container.side-legend { order: 2; }
 }
 
 /* Legend layout: horizontal spacing only */

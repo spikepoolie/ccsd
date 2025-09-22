@@ -89,7 +89,7 @@ const ChartFromDataJson = () => {
   const cPercentages = React.useMemo(() => censusRows.map(r => Number(r.percentage) || 0), [censusRows]);
   // Dashboard options (census removed; add more later)
   const dashboards = [
-    { key: 'bookings', label: 'Persons Arrested/Booked' },
+    { key: 'bookings', label: 'Persons Arrested/Booked / Census' },
   ];
   // Labels for SideDrawer views retained for future use
 
@@ -200,7 +200,7 @@ const ChartFromDataJson = () => {
             {/* City selector (applies to both charts) */}
             {true && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Cities</h3>
+                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }} />
                 
                 {/* Pills for tablet/desktop */}
                 <div className="city-pills-container">
