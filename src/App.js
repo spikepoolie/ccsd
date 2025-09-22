@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import bookings from './data/bookings.json';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart as MUIBarChart } from '@mui/x-charts/BarChart';
+import { PieChart as MUIPieChart } from '@mui/x-charts/PieChart';
 import SideDrawer from './components/SideDrawer';
 import Header from './components/Header';
 import sheriffLogo from './images/sheriff-logo.webp';
@@ -8,32 +9,7 @@ import sheriffLogo from './images/sheriff-logo.webp';
 // Define colors for charts
 const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF7043'];
 
-// Custom tooltip component for Recharts
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <div className="recharts-tooltip" style={{ 
-        backgroundColor: 'rgba(255, 255, 255, 0.95)', 
-        border: '1px solid #ccc', 
-        borderRadius: '6px', 
-        padding: '10px', 
-        boxShadow: '0 2px 8px rgba(0,0,0,0.15)' 
-      }}>
-        <p style={{ margin: 0, fontWeight: 'bold', marginBottom: '4px' }}>{label}</p>
-        <p style={{ margin: 0, color: '#333' }}>
-          Bookings: {payload[0].value.toLocaleString()}
-        </p>
-        {data.percentage !== undefined && (
-          <p style={{ margin: 0, color: '#666' }}>
-            Percentage: {data.percentage}%
-          </p>
-        )}
-      </div>
-    );
-  }
-  return null;
-};
+// Recharts tooltip removed; MUI X Charts uses valueFormatter in series
 
 // Custom legend component for pie charts
 const CustomLegend = ({ data, chartType }) => {
@@ -196,7 +172,7 @@ const ChartFromDataJson = () => {
             {/* City selector moved here for better mobile dropdown positioning */}
             {(view === 'bookings' || view === 'census') && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}></h3>
+                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Cities</h3>
                 
                 {/* Pills for tablet/desktop */}
                 <div className="city-pills-container">
@@ -253,68 +229,65 @@ const ChartFromDataJson = () => {
 function ChartSwitcher({ view, chartType, demo, viewLabel }) {
   const { labels, counts, percentages } = demo;
   
-  // Transform data for Recharts format
+  // Transform data for charts
   const chartData = labels.map((label, index) => ({
     race: label,
     bookings: counts[index] || 0,
-    percentage: percentages[index] || 0
+    percentage: percentages[index] || 0,
+    color: COLORS[index % COLORS.length],
   }));
 
   if (chartType === 'bar') {
     return (
-      <div style={{ width: '100%', height: '500px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="race" 
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              interval={0}
-            />
-            <YAxis />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="bookings" fill={COLORS[0]} />
-          </BarChart>
-        </ResponsiveContainer>
+      <div style={{ width: '100%', height: 500 }}>
+        <MUIBarChart
+          dataset={chartData}
+          xAxis={[{ scaleType: 'band', dataKey: 'race', tickLabelStyle: { angle: -45, textAnchor: 'end' } }]}
+          series={[{ dataKey: 'bookings', label: 'Bookings', color: COLORS[0], valueFormatter: (v) => (Number(v) || 0).toLocaleString() }]}
+          margin={{ top: 20, right: 30, bottom: 70, left: 60 }}
+          grid={{ vertical: true, horizontal: true }}
+          slotProps={{ legend: { hidden: true } }}
+        />
       </div>
     );
   }
 
-  // For pie and doughnut charts
   const isMobile = window.matchMedia('(max-width: 767px)').matches;
-  
+  const arcLabelFn = isMobile
+    ? undefined
+    : ((item) => {
+        const val = (Number(item.value) || 0).toLocaleString();
+        const pct = item?.percentage ?? 0;
+        // Include race name with smaller font via sx on PieChart
+        return `${item.label}\n${val} ${pct}%`;
+      });
+  const pies = [{
+    id: 'pie',
+    data: chartData.map((d) => ({ id: d.race, value: d.bookings, label: d.race, color: d.color, percentage: d.percentage })),
+    innerRadius: chartType === 'doughnut' ? 60 : 0,
+    outerRadius: chartType === 'doughnut' ? 120 : 140,
+    paddingAngle: 1,
+    arcLabel: arcLabelFn,
+    arcLabelMinAngle: 16,
+  }];
+
   return (
     <div className="chart-row">
       <CustomLegend data={chartData} chartType={chartType} />
       <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ 
-          width: '100%', 
-          height: isMobile ? '400px' : '580px'
-        }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ race, bookings, percentage }) => 
-                  isMobile ? null : `${race}\n${bookings.toLocaleString()}\n${percentage}%`
-                }
-                outerRadius={chartType === 'doughnut' ? 120 : 140}
-                innerRadius={chartType === 'doughnut' ? 60 : 0}
-                fill="#8884d8"
-                dataKey="bookings"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomTooltip />} />
-            </PieChart>
-          </ResponsiveContainer>
+        <div style={{ width: '100%', height: isMobile ? 400 : 580 }}>
+          <MUIPieChart
+            series={pies}
+            slotProps={{ legend: { hidden: true } }}
+            colors={COLORS}
+            margin={{ top: 10, right: 40, bottom: 10, left: 10 }}
+            sx={{
+              '& .MuiChartsArcLabel-root': {
+                fontSize: 11,
+                lineHeight: 1.1,
+              },
+            }}
+          />
         </div>
       </figure>
     </div>

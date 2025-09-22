@@ -66,8 +66,8 @@ code {
   .chart-area.pie-chart,
   .chart-area.doughnut-chart {
     flex: 0 0 auto;
-    width: 500px;
-    max-width: 500px;
+    width: 640px; /* wider to prevent label cutoff */
+    max-width: 640px;
   }
   
   /* Reduce gap between legend and pie/doughnut charts */
@@ -162,10 +162,6 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   color: #333;
 }
 
-.city-selector-label::after {
-  content: "Select City:";
-}
-
 .city-pills-container {
   display: flex;
   gap: 8px;
@@ -212,9 +208,6 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 
 /* Tablet styles - 5 pills per row */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .city-selector-label::after {
-    content: "Cities";
-  }
   
   .city-pills-container {
     display: grid;
@@ -243,7 +236,4 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 
 /* Desktop styles - show "Cities" label */
 @media (min-width: 1024px) {
-  .city-selector-label::after {
-    content: "Cities";
-  }
 }
