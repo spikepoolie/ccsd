@@ -26,11 +26,11 @@ code {
 @media (min-width: 768px) {
   .side-legend { 
     display: grid;
-    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
+    grid-template-columns: repeat(2, 125px); /* +20% from 104px */
     grid-template-rows: repeat(3, auto);
-    gap: 12px 16px; 
+    gap: 10px; /* ensure 10px spacing between items in each row and between rows */
     width: auto;
-    max-width: 336px; /* 2 * 160 + 16 gap */
+    max-width: 260px; /* 2 * 125 + 10 gap */
     justify-content: center; /* center grid under chart */
     margin-left: auto;
     margin-right: auto;
@@ -72,17 +72,27 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 #legend-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 14px; align-items: start; justify-items: start; }
 
 /* Legends are now shown on all sizes; use responsive grid tweaks in responsive.css */
-.legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: auto; cursor: pointer; }
+.legend-card { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: 8px; border: 1px solid #eee; background: #fff; min-width: 0; width: auto; cursor: pointer; align-items: center; text-align: center; }
 .legend-card.is-hidden { opacity: 0.5; }
-.legend-top { display: flex; align-items: center; justify-content: flex-start; font-weight: 600; font-size: 13px; color: #222; }
-.legend-bottom { display: flex; align-items: center; justify-content: space-between; }
-.legend-bottom.legend-stack { flex-direction: column; align-items: flex-start; gap: 6px; }
+.legend-top { display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: #222; text-align: center; }
+.legend-bottom { display: flex; align-items: center; justify-content: center; }
+.legend-bottom.legend-stack { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 .legend-swatch { height: 10px; width: 54px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); flex: 0 0 auto; }
-.legend-value { font-size: 12px; color: #333; margin-left: 12px; flex: 1 1 auto; }
-.legend-bottom.legend-stack .legend-value { margin-left: 0; text-align: left; }
+.legend-value { font-size: 12px; color: #333; margin-left: 0; flex: 0 0 auto; text-align: center; }
+.legend-bottom.legend-stack .legend-value { margin-left: 0; text-align: center; }
 
 /* Ensure legend cards respect grid cell width */
-#legend-container .legend-card { width: 100%; }
+#legend-container .legend-card {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+@supports not (gap: 1rem) {
+  #legend-container .legend-card { margin-bottom: 10px; }
+  #legend-container .legend-card:nth-child(2n+1) { margin-right: 12px; }
+}
 
 /* Mobile legend styling - pill-like, 2 per row, centered */
 @media (max-width: 767px) {
@@ -133,14 +143,12 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
 @media (min-width: 768px) {
   #legend-container.side-legend {
     display: grid;
-    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
-    grid-template-rows: repeat(3, auto);
-    gap: 12px 16px; 
-    width: auto;
-    max-width: 336px; /* 2 * 160 + 16 gap */
-    justify-content: center; /* center grid under chart */
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 cols that stretch */
+    column-gap: 12px;   /* ← horizontal gap */
+    row-gap: 10px;      /* ← vertical gap */
+    background: #f7f7f9;  /* contrast so the gap is visible */
+    padding: 4px;         /* keeps outer edges from touching */
+    border-radius: 10px;
   }
 }
 
@@ -274,11 +282,11 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
   .two-col-charts #legend-container.side-legend {
     display: grid;
-    grid-template-columns: repeat(2, 160px); /* narrower fixed columns */
+    grid-template-columns: repeat(2, 125px); /* +20% from 104px */
     grid-template-rows: repeat(3, auto);
-    gap: 12px 16px;
+    gap: 10px; /* ensure 10px spacing between items in each row and between rows */
     width: max-content;
-    max-width: 336px;
+    max-width: 260px;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
@@ -286,4 +294,28 @@ header[role="banner"] > div { display: flex; align-items: center; gap: 12px; max
   }
 }
 
+/* Legend layout: single source of truth */
+.legend-grid {
+  display: grid !important;
+  gap: 36px !important;            /* ← actual spacing between items */
+}
 
+/* Mobile: 3 per row */
+@media (max-width: 767px) {
+  .legend-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Tablet/desktop: 2 fixed columns */
+@media (min-width: 768px) {
+  .legend-grid { grid-template-columns: repeat(2, 125px); }
+}
+
+/* Make cards fill their grid cell */
+.legend-grid .legend-card { width: 100%; }
+
+/* (Optional) fallback if gap ever gets overridden */
+.legend-grid .legend-card { margin: 0; }
+@supports not (gap: 1rem) {
+  .legend-grid .legend-card { margin: 6px; }
+  .legend-grid { margin: -6px; }
+}

@@ -15,7 +15,7 @@ const COLORS = ['#4285F4','#DB4437','#F4B400','#0F9D58','#AB47BC','#00ACC1','#FF
 const CustomLegend = ({ data, chartType }) => {
   // We now show the legend for bar, pie, and doughnut
   return (
-    <div id="legend-container" className="side-legend">
+    <div className="legend-grid side-legend">
       {data.map((entry, index) => (
         <div key={`legend-${index}`} className="legend-card">
           <div className="legend-top">
