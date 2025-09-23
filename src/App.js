@@ -41,12 +41,24 @@ const ChartFromDataJson = () => {
   const [dashboard, setDashboard] = useState('bookings'); // Top-level dashboard selector (future expansion)
   const [drawerOpen, setDrawerOpen] = useState(false);
   
+  // Year support: detect multi-year schema and manage selected year
+  const hasByYear = !!(bookings && bookings.byYear);
+  const availableYears = React.useMemo(() => hasByYear ? Object.keys(bookings.byYear).sort() : [], [hasByYear]);
+  const defaultYear = hasByYear ? String(bookings.defaultYear ?? availableYears[0] ?? '') : '';
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
+  const dataRoot = React.useMemo(() => {
+    if (hasByYear) {
+      return bookings.byYear[selectedYear] || bookings.byYear[defaultYear] || {};
+    }
+    return bookings || {};
+  }, [hasByYear, selectedYear, defaultYear]);
+  
   // Helper to normalize city names for deduplication and filtering
   const normalizeCity = React.useCallback((name) => (name || '').toString().toLowerCase().replace(/\s+/g, ' ').trim(), []);
   // Build deduplicated city list using normalized city name as key
   const cityList = React.useMemo(() => {
-    const b = bookings.bookings || [];
-    const c = bookings['census-bookings'] || [];
+    const b = dataRoot.bookings || [];
+    const c = dataRoot['census-bookings'] || [];
     const byKey = new Map();
     const upsert = (row) => {
       if (!row) return;
@@ -72,12 +84,12 @@ const ChartFromDataJson = () => {
   
   // Build datasets for the selected city from both sources
   const bookingRows = React.useMemo(
-    () => (bookings.bookings || []).filter(b => normalizeCity(b.city) === selectedCityId),
-    [selectedCityId, normalizeCity]
+    () => (dataRoot.bookings || []).filter(b => normalizeCity(b.city) === selectedCityId),
+    [dataRoot, selectedCityId, normalizeCity]
   );
   const censusRows = React.useMemo(
-    () => (bookings['census-bookings'] || []).filter(b => normalizeCity(b.city) === selectedCityId),
-    [selectedCityId, normalizeCity]
+    () => (dataRoot['census-bookings'] || []).filter(b => normalizeCity(b.city) === selectedCityId),
+    [dataRoot, selectedCityId, normalizeCity]
   );
 
   const bLabels = React.useMemo(() => bookingRows.map(r => r.race), [bookingRows]);
@@ -201,6 +213,23 @@ const ChartFromDataJson = () => {
               </select>
             </div>
 
+            {/* Year selector (visible only when data has byYear) */}
+            {hasByYear && availableYears.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', minWidth: 120 }}>
+                <label htmlFor="yearSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Year:</label>
+                <select
+                  id="yearSelect"
+                  style={{ padding: 8, fontSize: 16 }}
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(e.target.value)}
+                >
+                  {availableYears.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             {/* Chart Type pills to the right of the Select Dashboard dropdown */}
             <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
               <label style={{ margin: '0 0 5px', fontWeight: 700 }}>Chart Type:</label>
@@ -222,7 +251,7 @@ const ChartFromDataJson = () => {
             {/* City selector (applies to both charts) */}
             {true && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-                <h3 className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }} />
+                <label className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Select City:</label>
                 
                 {/* Pills for tablet/desktop */}
                 <div className="city-pills-container">
@@ -285,6 +314,21 @@ const ChartFromDataJson = () => {
 
 function ChartSwitcher({ view, chartType, demo, viewLabel, legendRight = false }) {
   const { labels, counts, percentages } = demo;
+  const empty = !labels || labels.length === 0 || !counts || counts.length === 0;
+  if (empty) {
+    return (
+      <div className={`chart-row ${legendRight ? 'legend-right' : ''}`}>
+        <figure className={`chart-area ${chartType}-chart`}>
+          <div style={{
+            width: '100%', height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#6b7280', background: '#f9fafb', border: '1px dashed #e5e7eb', borderRadius: 8
+          }}>
+            No data to display
+          </div>
+        </figure>
+      </div>
+    );
+  }
   
   // Unified data structure for legend and charts
   const chartData = labels.map((label, index) => ({
