@@ -1,127 +1,31 @@
 import React, { useState } from 'react';
-import bookings from './data/bookings.json';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import './chartConfig/chartJsSetup';
 import SideDrawer from './components/SideDrawer';
 import MdfBookingsChart from './components/MdfBookingsChart';
+import RaceCensusChart from './components/RaceCensusChart';
 import Header from './components/Header';
 import sheriffLogo from './images/sheriff-logo.webp';
 import { CHART_PALETTE } from './chartConfig/colors';
+import drawerItems from './config/drawerItems';
 
 // Define colors for charts
 const COLORS = CHART_PALETTE;
 
-// Custom legend component for all charts (now placed left via CSS on tablet/desktop)
-const CustomLegend = ({ data, chartType }) => {
-  // We now show the legend for bar, pie, and doughnut
-  return (
-    <div className="legend-grid side-legend">
-      {data.map((entry, index) => (
-        <div key={`legend-${index}`} className="legend-card">
-          <div className="legend-top">
-            <div className="legend-label">{entry.race}</div>
-          </div>
-          <div className="legend-bottom legend-stack">
-            <div
-              className="legend-swatch"
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-            />
-            <div className="legend-value">
-              {entry.bookings.toLocaleString()} - {entry.percentage}%
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 const ChartFromDataJson = () => {
   const [chartType, setChartType] = useState('bar');
-  const [view, setView] = useState('demographics'); // SideDrawer section selection
-  const [dashboard, setDashboard] = useState('bookings'); // Selected report within current view
-  const [dashboards, setDashboards] = useState([{ key: 'bookings', label: 'Persons Arrested/Booked / Census' }]);
+  const [view, setView] = useState('demographics');
+  const [dashboard, setDashboard] = useState('bookings');
+  const [dashboards, setDashboards] = useState([{ key: 'bookings', label: 'Persons Arrested/Booked / Census', component: 'RaceCensus', data: '/data/arrests-bookings-census.json' }]);
   const SAFE_DEFAULT_DASHBOARDS = React.useMemo(() => (
-    [{ key: 'bookings', label: 'Persons Arrested/Booked / Census' }]
+    [{ key: 'bookings', label: 'Persons Arrested/Booked / Census', component: 'RaceCensus', data: '/data/arrests-bookings-census.json' }]
   ), []);
   const [drawerOpen, setDrawerOpen] = useState(false);
   // Registry: map manifest component names to React components
   const componentRegistry = React.useMemo(() => ({
     MdfBookingsChart: MdfBookingsChart,
-  }), []);
-  
-  // Year support: detect multi-year schema and manage selected year
-  const hasByYear = !!(bookings && bookings.byYear);
-  const availableYears = React.useMemo(() => hasByYear ? Object.keys(bookings.byYear).sort() : [], [hasByYear]);
-  const defaultYear = hasByYear ? String(bookings.defaultYear ?? availableYears[0] ?? '') : '';
-  const [selectedYear, setSelectedYear] = useState(defaultYear);
-  const dataRoot = React.useMemo(() => {
-    if (hasByYear) {
-      return bookings.byYear[selectedYear] || bookings.byYear[defaultYear] || {};
-    }
-    return bookings || {};
-  }, [hasByYear, selectedYear, defaultYear]);
-  
-  // Helper to normalize city names for deduplication and filtering
-  const normalizeCity = React.useCallback((name) => (name || '').toString().toLowerCase().replace(/\s+/g, ' ').trim(), []);
-  // Build deduplicated city list using normalized city name as key
-  const cityList = React.useMemo(() => {
-    const b = dataRoot.bookings || [];
-    const c = dataRoot['census-bookings'] || [];
-    const byKey = new Map();
-    const upsert = (row) => {
-      if (!row) return;
-      const raw = (row.city || '').toString();
-      const name = raw.replace(/\s+/g, ' ').trim();
-      const key = normalizeCity(raw);
-      if (!key) return;
-      const prev = byKey.get(key);
-      if (!prev) {
-        byKey.set(key, { key, name });
-      } else {
-        // prefer the longer, more descriptive name
-        const displayName = prev.name.length >= name.length ? prev.name : name;
-        byKey.set(key, { key, name: displayName });
-      }
-    };
-    b.forEach(upsert);
-    c.forEach(upsert);
-    return Array.from(byKey.values()).sort((a, d) => a.name.localeCompare(d.name));
-  }, [normalizeCity]);
-  const defaultCityKey = (cityList.find(x => /contra\s*costa/i.test(x.name))?.key) || (cityList[0]?.key || '');
-  const [selectedCityId, setSelectedCityId] = useState(defaultCityKey);
-  
-  // Build datasets for the selected city from both sources
-  const bookingRows = React.useMemo(
-    () => (dataRoot.bookings || []).filter(b => normalizeCity(b.city) === selectedCityId),
-    [dataRoot, selectedCityId, normalizeCity]
-  );
-  const censusRows = React.useMemo(
-    () => (dataRoot['census-bookings'] || []).filter(b => normalizeCity(b.city) === selectedCityId),
-    [dataRoot, selectedCityId, normalizeCity]
-  );
+    RaceCensus: (props) => <RaceCensusChart chartType={chartType} {...props} />,
+  }), [chartType]);
 
-  const bLabels = React.useMemo(() => bookingRows.map(r => r.race), [bookingRows]);
-  const bCounts = React.useMemo(() => bookingRows.map(r => Number(r.bookings) || 0), [bookingRows]);
-  const bPercentages = React.useMemo(() => bookingRows.map(r => Number(r.percentage) || 0), [bookingRows]);
-
-  const cLabels = React.useMemo(() => censusRows.map(r => r.race), [censusRows]);
-  const cCounts = React.useMemo(() => censusRows.map(r => Number(r.bookings) || 0), [censusRows]);
-  const cPercentages = React.useMemo(() => censusRows.map(r => Number(r.percentage) || 0), [censusRows]);
-  
-  // Determine if the selected city should show the Census chart.
-  // Preference: use the hasCensus flag from bookings.json rows for the city; fallback to presence of census rows.
-  const hasCensusForCity = React.useMemo(() => {
-    if (bookingRows && bookingRows.length) {
-      // If any row explicitly has true, we show it; if all rows explicitly false, hide it
-      const anyTrue = bookingRows.some(r => r && r.hasCensus === true);
-      const allFalse = bookingRows.every(r => r && r.hasCensus === false);
-      if (anyTrue) return true;
-      if (allFalse) return false;
-    }
-    // Fallback: show if census dataset has entries for the city
-    return (censusRows && censusRows.length > 0);
-  }, [bookingRows, censusRows]);
   // Load dashboards (reports) for the selected SideDrawer view from public/reports/{view}.json
   React.useEffect(() => {
     let cancelled = false;
@@ -138,7 +42,6 @@ const ChartFromDataJson = () => {
         }
       } catch (e) {
         if (!cancelled) {
-          // Fallback if file not present or failed to load: always show safe default
           setDashboards(SAFE_DEFAULT_DASHBOARDS);
           setDashboard(SAFE_DEFAULT_DASHBOARDS[0]?.key || 'bookings');
         }
@@ -146,101 +49,8 @@ const ChartFromDataJson = () => {
     };
     load();
     return () => { cancelled = true; };
-  }, [view]);
-  // Labels for SideDrawer views retained for future use
+  }, [view, SAFE_DEFAULT_DASHBOARDS]);
 
-  // Ensure selectedCity is valid if city list changes
-  React.useEffect(() => {
-    if (!cityList.some(x => x.key === selectedCityId)) {
-      setSelectedCityId(defaultCityKey);
-    }
-  }, [cityList, selectedCityId, defaultCityKey]);
-
-  // Lock body scroll when the mobile drawer is open
-  React.useEffect(() => {
-    const mq = window.matchMedia('(max-width: 960px)');
-    const original = document.body.style.overflow;
-    if (drawerOpen && mq.matches) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = original || '';
-    }
-    return () => { document.body.style.overflow = original || ''; };
-  }, [drawerOpen]);
-
-  // Ensure drawer closes automatically when switching to desktop widths
-  React.useEffect(() => {
-    const mq = window.matchMedia('(min-width: 961px)');
-    const handle = () => {
-      if (mq.matches) setDrawerOpen(false);
-    };
-    handle();
-    mq.addEventListener?.('change', handle);
-    return () => mq.removeEventListener?.('change', handle);
-  }, []);
-
-  const drawerItems = [
-    {
-      id: 1,
-      key: 'custody-services-bureau',
-      label: 'Custody Services Bureau',
-      children: [
-        { key: 'mdf-bookings', label: '# MDF Bookings' },
-        { key: 'custody-alternative-bookings', label: '# Custody Alternative Bookings' },
-      ],
-    },
-    { id: 2,key: 'arrests-bookings-census', label: 'Persons Arrested/Booked & Census Data' },
-    { id: 3, key: 'felony-race-percentage', label: 'Prior Felony by Race & % of Jail Pop.' },
-    { id: 4, key: 'custody-alternative', label: 'Custody Alternative Facility' },
-    { id: 5, key: 'operating-costs', label: 'FY 23/24 Operating Costs vs Detention' },
-    {
-      id: 6,
-      key: 'custody-services-bureau',
-      label: '# Custody Services Bureau',
-      children: [
-        { key: 'number-bookings-agency', label: 'Total Number of Bookings by Agency' },
-        { key: 'bookings-by-gender', label: 'Bookings by Gender' },
-        { key: 'average-daily-population', label: 'Average Daily Population' },
-        { key: 'average-pre-post-trial', label: 'Average Pre and Post Trial Population' },
-        { key: 'in-custody-deaths', label: 'In-Custody Deaths' },
-        { key: 'norcan-deployments', label: 'Norcan Deployments' },
-        { key: 'assaults-on-staff', label: 'Assaults on Staff' },
-        { key: 'notification-received-results', label: 'Total Requests for Notification Received' },
-        { key: 'notification-made-results', label: 'Total Requests for Notification Made' },
-        { key: 'notification-same-person-results', label: 'Notificaion on the Same Person' },
-        { key: 'net-notification', label: 'Net Notification Made' },
-      ],
-    },
-    { id: 7, key: 'field-operation-bureau', label: 'Field Operation Bureau',
-    children: [
-        { key: 'total-dispatch-call-service', label: 'Total Number of Dispatch Calls for Service' },
-        { key: 'total-office-sheriff', label: 'Total Office of the Sheriff Personnel' },
-        { key: 'assaults-staff', label: 'Assaults on Staff' },
-        { key: 'a3', label: 'A3 (Anyone, Anywhere, Anytime) Requests' },
-        { key: 'a3-responses', label: 'A3 Responses' },
-        { key: 'mental-health-evaluation', label: 'Mental Health Evaluation Team Deployments' },
-        { key: 'welfare-institutions-code-5150', label: 'Total Welfare & Institutions Code 5150 Calls' },
-        { key: 'non-violent-welfare', label: 'Non-Violent Welfare & Institutions Code 5150 Calls' },
-        { key: 'violent-welfare', label: 'Violent Welfare & Institutions Code 5150 Calls' },
-        { key: 'writ-possession', label: 'Writ of Possession of Real Property with Tenant Removal' },
-        { key: 'tenant-removal', label: 'Tenant Removal' },
-    ] },
-    { id: 8, key: 'support-bureau', label: 'Support Bureau',
-       children: [
-        { key: 'total-coroners-cases', label: 'Total Number of Coroners Cases' },
-        { key: 'total-autopsies', label: 'Total Number of Autopsies' },
-        { key: 'fentanyl-deaths', label: 'Total Number of Fentanul Related Deaths' },
-        { key: 'suicide-deaths', label: 'Total Number of Suicide Deaths' },
-    ] },
-    { id: 9, key: 'administration-services-bureau', label: 'Administration Bureau',
-      children: [
-        { key: 'internal-affairs', label: 'Internal Affairs Investigations Initiated' },
-        { key: 'use-of-force', label: 'Total Number of Use of Force Incidents reported to State DOJ*' },
-        { key: 'number-ccw', label: 'Number of CCW Processed' },
-    ] },
-  ];
-
-  // Alphabetically sort drawer items and their children by label
   const sortedDrawerItems = React.useMemo(() => {
     const clone = drawerItems.map(it => ({
       ...it,
@@ -252,156 +62,49 @@ const ChartFromDataJson = () => {
     return clone;
   }, []);
 
-  // Determine if phone width to optionally tighten spacing for non-bar charts
   const isPhone = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
-  const tightNonBarPhone = isPhone && chartType !== 'bar';
-  const headingBottomMarginPx = tightNonBarPhone ? 2 : 8;
-  // If no census for the selected city, switch to single-column layout for any chart type
-  const singleColNoCensus = !hasCensusForCity;
-  // On tablet/desktop: for non-bar charts when there is no census, place legend to the right of the chart
-  const legendRight = !isPhone && chartType !== 'bar' && !hasCensusForCity;
-  
+  const headingBottomMarginPx = isPhone && chartType !== 'bar' ? 2 : 8;
+
   return (
     <>
       <Header logoSrc={sheriffLogo} title="Contra Costa County Sheriff" onMenuToggle={() => setDrawerOpen(v=>!v)} isMenuOpen={drawerOpen} />
       <div className="page-shell">
         <div style={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'nowrap', width: '100%' }}>
-        {/* Backdrop for mobile overlay (rendered only when open) */}
-        {drawerOpen && (
-          <div
-            className="drawer-backdrop show"
-            role="presentation"
-            onClick={() => setDrawerOpen(false)}
-            aria-hidden={!drawerOpen}
+          {drawerOpen && (
+            <div className="drawer-backdrop show" role="presentation" onClick={() => setDrawerOpen(false)} aria-hidden={!drawerOpen} />
+          )}
+          <SideDrawer
+            items={sortedDrawerItems}
+            selected={view}
+            onSelect={(k)=>{setView(k); setDrawerOpen(false);}}
+            className={`app-drawer ${drawerOpen ? 'is-open' : ''}`}
+            isOpen={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
           />
-        )}
-        <SideDrawer
-          items={sortedDrawerItems}
-          selected={view}
-          onSelect={(k)=>{setView(k); setDrawerOpen(false);}}
-          className={`app-drawer ${drawerOpen ? 'is-open' : ''}`}
-          isOpen={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-        />
-        <main id="main" className="app-container" role="main" aria-live="polite" style={{ flex: '1 1 auto', minWidth: 0, margin: 0 }}>
-          {/* Dashboard, City and Chart Type selectors */}
-          <div style={{ 
-            display: 'flex', 
-            gap: window.matchMedia('(max-width: 767px)').matches ? 12 : 24, 
-            alignItems: 'flex-end', 
-            justifyContent: 'flex-start', 
-            marginBottom: 20, 
-            flexWrap: 'wrap' 
-          }}>
-            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 220 }}>
-              <label htmlFor="dashboardSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Select Dashboard:</label>
-              <select
-                id="dashboardSelect"
-                style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }}
-                value={dashboard}
-                onChange={(e) => setDashboard(e.target.value)}
-              >
-                {dashboards.map(item => (
-                  <option key={item.key} value={item.key}>{item.label}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Year selector (visible only when data has byYear) */}
-            {hasByYear && availableYears.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', minWidth: 120 }}>
-                <label htmlFor="yearSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Year:</label>
-                <select
-                  id="yearSelect"
-                  style={{ padding: 8, fontSize: 16 }}
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
-                >
-                  {availableYears.map(y => (
-                    <option key={y} value={y}>{y}</option>
+          <main id="main" className="app-container" role="main" aria-live="polite" style={{ flex: '1 1 auto', minWidth: 0, margin: 0 }}>
+            <div style={{ display: 'flex', gap: window.matchMedia('(max-width: 767px)').matches ? 12 : 24, alignItems: 'flex-end', justifyContent: 'flex-start', marginBottom: 20, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', minWidth: 220 }}>
+                <label htmlFor="dashboardSelect" style={{ marginBottom: 5, fontWeight: 700 }}>Select Dashboard:</label>
+                <select id="dashboardSelect" style={{ padding: 8, fontSize: 16, position: 'relative', zIndex: 1000 }} value={dashboard} onChange={(e) => setDashboard(e.target.value)}>
+                  {dashboards.map(item => (
+                    <option key={item.key} value={item.key}>{item.label}</option>
                   ))}
                 </select>
               </div>
-            )}
 
-            {/* Chart Type pills to the right of the Select Dashboard dropdown */}
-            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-              <label style={{ margin: '0 0 5px', fontWeight: 700 }}>Chart Type:</label>
-              <div className="chart-type-pills" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {['bar', 'pie', 'doughnut'].map(t => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setChartType(t)}
-                    className={`city-pill ${chartType === t ? 'selected' : ''}`}
-                    aria-pressed={chartType === t}
-                  >
-                    {t.charAt(0).toUpperCase() + t.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            {/* City selector (applies to both charts) */}
-            {true && (
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
-                <label className="city-selector-label" style={{ marginBottom: 5, fontWeight: 700, fontSize: 14 }}>Select Agency</label>
-                
-                {/* Pills for tablet/desktop */}
-                <div className="city-pills-container">
-                  {cityList.map(city => (
-                    <button
-                      key={city.key}
-                      onClick={() => setSelectedCityId(city.key)}
-                      className={`city-pill ${selectedCityId === city.key ? 'selected' : ''}`}
-                    >
-                      {city.name}
+                <label style={{ margin: '0 0 5px', fontWeight: 700 }}>Chart Type:</label>
+                <div className="chart-type-pills" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  {['bar', 'pie', 'doughnut'].map(t => (
+                    <button key={t} type="button" onClick={() => setChartType(t)} className={`city-pill ${chartType === t ? 'selected' : ''}`} aria-pressed={chartType === t}>
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
                     </button>
                   ))}
                 </div>
-                
-                {/* Select dropdown for mobile */}
-                <select 
-                  className="city-select-dropdown"
-                  value={selectedCityId}
-                  onChange={(e) => setSelectedCityId(e.target.value)}
-                  style={{ padding: 8, fontSize: 16 }}
-                >
-                  {cityList.map(city => (
-                    <option key={city.key} value={city.key}>{city.name}</option>
-                  ))}
-                </select>
               </div>
-            )}
-            
-          </div>
-          
-          {dashboard === 'bookings' || dashboards.length === 0 ? (
-            <div className={`two-col-charts ${tightNonBarPhone ? 'tight-nonbar-phone' : ''} ${singleColNoCensus ? 'single-col' : ''}`}>
-              <section className="chart-card">
-                <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Bookings by Race</h2>
-                <ChartSwitcher
-                  view={view}
-                  chartType={chartType}
-                  demo={{ labels: bLabels, counts: bCounts, percentages: bPercentages }}
-                  viewLabel={'Bookings'}
-                  legendRight={legendRight}
-                />
-              </section>
-              {hasCensusForCity && (
-                <section className="chart-card">
-                  <h2 style={{ margin: `0 0 ${headingBottomMarginPx}px`, fontSize: 18, color: '#112540' }}>Census by Race</h2>
-                  <ChartSwitcher
-                    view={view}
-                    chartType={chartType}
-                    demo={{ labels: cLabels, counts: cCounts, percentages: cPercentages }}
-                    viewLabel={'Census'}
-                  />
-                </section>
-              )}
             </div>
-          ) : (
-            (() => {
+
+            {(() => {
               const selected = dashboards.find(d => d.key === dashboard) || dashboards[0];
               const Comp = componentRegistry[selected?.component] || MdfBookingsChart;
               return (
@@ -412,176 +115,12 @@ const ChartFromDataJson = () => {
                   <Comp datasetKey={selected?.datasetKey || dashboard} dataUrl={selected?.data} />
                 </section>
               );
-            })()
-          )}
-        </main>
+            })()}
+          </main>
         </div>
       </div>
     </>
   );
 };
-
-function ChartSwitcher({ view, chartType, demo, viewLabel, legendRight = false }) {
-  const { labels, counts, percentages } = demo;
-  const empty = !labels || labels.length === 0 || !counts || counts.length === 0;
-  if (empty) {
-    return (
-      <div className={`chart-row ${legendRight ? 'legend-right' : ''}`}>
-        <figure className={`chart-area ${chartType}-chart`}>
-          <div style={{
-            width: '100%', height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#6b7280', background: '#f9fafb', border: '1px dashed #e5e7eb', borderRadius: 8
-          }}>
-            No data to display
-          </div>
-        </figure>
-      </div>
-    );
-  }
-  
-  // Unified data structure for legend and charts
-  const chartData = labels.map((label, index) => ({
-    race: label,
-    bookings: counts[index] || 0,
-    percentage: percentages[index] || 0
-  }));
-  // Media query for responsive label decisions
-  const isMobile = window.matchMedia('(max-width: 767px)').matches;
-  const isTwoCol = window.matchMedia('(min-width: 600px)').matches; // matches our CSS breakpoint
-
-  if (chartType === 'bar') {
-    const maxVal = counts.length ? Math.max(...counts) : 0;
-  const suggestedMax = Math.ceil(maxVal * 1.06); // tighter headroom for shorter height
-    const data = {
-      labels,
-      datasets: [
-        {
-          label: 'Bookings',
-          data: counts,
-          backgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
-          borderColor: labels.map((_, i) => COLORS[i % COLORS.length]),
-          hoverBackgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
-          borderWidth: 0,
-          borderRadius: 4,
-        },
-      ],
-    };
-    const options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const v = Number(ctx.parsed.y || 0).toLocaleString();
-              const i = ctx.dataIndex ?? 0;
-              const pct = (percentages[i] ?? 0);
-              const base = `${v} - ${pct}%`;
-              return ctx.dataset.label ? `${ctx.dataset.label}: ${base}` : base;
-            },
-          },
-        },
-        datalabels: {
-          display: true,
-          color: '#112540',
-          formatter: (value, context) => {
-            const i = context.dataIndex;
-            const val = Number(value || 0).toLocaleString();
-            const pct = percentages[i] ?? 0;
-            return `${val} - ${pct}%`;
-          },
-          font: { size: (isTwoCol || isMobile) ? 8 : 10, weight: 'bold' },
-          anchor: 'end',
-          align: 'top',
-          offset: 1,
-          clip: false,
-        },
-      },
-      scales: {
-        x: {
-          ticks: { autoSkip: false, maxRotation: 20, minRotation: 0, font: { size: 10 } },
-        },
-        y: {
-          ticks: { callback: (v) => Number(v).toLocaleString(), font: { size: 10 } },
-          beginAtZero: true,
-          suggestedMax,
-        },
-      },
-      layout: { padding: { top: 6, bottom: 8 } },
-    };
-    return (
-      <div style={{ width: '100%', height: isMobile ? '320px' : (isTwoCol ? '380px' : '500px') }}>
-        <Bar data={data} options={options} />
-      </div>
-    );
-  }
-
-  // For pie and doughnut charts
-  // isMobile already computed above
-  const data = {
-    labels,
-    datasets: [
-      {
-        data: counts,
-        backgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
-        borderWidth: 0,
-      },
-    ],
-  };
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      // Keep built-in legend hidden; we render our own external legend
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: (ctx) => {
-            const i = ctx.dataIndex;
-            const val = Number(ctx.parsed || 0).toLocaleString();
-            const pct = percentages[i] ?? 0;
-            return `${labels[i]}: ${val} (${pct}%)`;
-          },
-        },
-      },
-  datalabels: {
-        display: !isMobile,
-        color: '#ffffff',
-        formatter: (value, context) => {
-          const i = context.dataIndex;
-          const race = labels[i] || '';
-          const val = Number(value || 0).toLocaleString();
-          const pct = percentages[i] ?? 0;
-          return `${race}\n${val} - ${pct}%`;
-        },
-        // Increase non-bar chart label font sizes for better readability
-        font: { size: (isMobile || isTwoCol) ? 18 : 14, weight: '' },
-        align: 'center',
-        anchor: 'center',
-        clip: false,
-      },
-    },
-    layout: { padding: 2 },
-  };
-
-  return (
-    <div className={`chart-row ${legendRight ? 'legend-right' : ''}`}>
-      {/* External legend (hidden for bar charts) */}
-      {chartType !== 'bar' && (
-        <CustomLegend data={chartData} chartType={chartType} />
-      )}
-      <figure className={`chart-area ${chartType}-chart`}>
-        <div style={{ width: '100%', height: isMobile ? '255px' : (isTwoCol ? '380px' : '520px') }}>
-          {chartType === 'doughnut' ? (
-            <Doughnut data={data} options={options} />
-          ) : (
-            <Pie data={data} options={options} />
-          )}
-        </div>
-      </figure>
-    </div>
-  );
-}
 
 export default ChartFromDataJson;
