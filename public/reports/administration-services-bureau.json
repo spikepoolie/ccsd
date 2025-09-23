@@ -1,1 +1,0 @@
-{ "dashboards": [ { "key": "bookings", "label": "Persons Arrested/Booked / Census", "component": "RaceCensus" } ] }

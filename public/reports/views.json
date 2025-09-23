@@ -1,0 +1,14 @@
+{
+  "views": [
+    {
+      "key": "arrests-bookings-census",
+      "label": "Persons Arrested/Booked & Census Data",
+      "manifest": "/reports/arrests-bookings-census.json"
+    },
+    {
+      "key": "custody-services-bureau",
+      "label": "Custody Services Bureau",
+      "manifest": "/reports/mdf-bookings.json"
+    }
+  ]
+}
