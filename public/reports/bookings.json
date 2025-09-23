@@ -1,0 +1,5 @@
+{
+  "dashboards": [
+    { "key": "bookings", "label": "Persons Arrested/Booked / Census", "component": "RaceCensus", "data": "/data/arrests-bookings-census.json" }
+  ]
+}

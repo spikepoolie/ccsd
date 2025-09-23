@@ -1,0 +1,35 @@
+{
+  "datasets": [
+    {
+      "key": "mdf-bookings",
+      "title": "Total Number of MDF Bookings",
+      "periods": [
+        "January to March",
+        "April to June",
+        "YTD Total"
+      ],
+      "series": [
+        { "name": "2024", "data": [3506, 3607, 7113] },
+        { "name": "2025", "data": [3920, 4011, 7931] }
+      ]
+    },
+    {
+      "key": "custody-alternative-bookings",
+      "title": "Total Number of Custody Alternative Bookings",
+      "periods": [
+        "January to March",
+        "April to June",
+        "YTD Total"
+      ],
+      "series": [
+        { "name": "2024", "data": [402, 489, 891] },
+        { "name": "2025", "data": [517, 565, 1082] }
+      ]
+    }
+  ],
+  "meta": {
+    "unit": "bookings",
+    "note": "Values from PDF/tables for Jan–Mar, Apr–Jun, and YTD totals.",
+    "lastUpdated": "2025-09-23"
+  }
+}

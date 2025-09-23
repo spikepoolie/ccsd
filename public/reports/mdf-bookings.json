@@ -1,0 +1,6 @@
+{
+  "dashboards": [
+    { "key": "mdf-bookings", "label": "Total # of MDF Bookings", "component": "MdfBookingsChart", "data": "/data/mdfBookings.json", "datasetKey": "mdf-bookings" },
+    { "key": "custody-alternative-bookings", "label": "Total # of Custody Alternative Bookings", "component": "MdfBookingsChart", "data": "/data/mdfBookings.json", "datasetKey": "custody-alternative-bookings" }
+  ]
+}

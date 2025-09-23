@@ -1,10 +1,19 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 
 export default function SideDrawer({ items, selected, onSelect, className, isOpen, onClose }) {
   const navRef = useRef(null);
   const firstFocusable = useRef(null);
   const lastFocusable = useRef(null);
   const drag = useRef({ startX: 0, startY: 0, dx: 0, dy: 0, dragging: false });
+  const [openKeys, setOpenKeys] = useState(() => new Set());
+
+  const toggleOpen = useCallback((key) => {
+    setOpenKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  }, []);
 
   const clsName = useMemo(() => {
     const base = 'app-drawer';
@@ -107,6 +116,8 @@ export default function SideDrawer({ items, selected, onSelect, className, isOpe
     }
   };
 
+  const hasChildren = (it) => Array.isArray(it.children) && it.children.length > 0;
+
   return (
     <nav
       id="drawer"
@@ -130,20 +141,71 @@ export default function SideDrawer({ items, selected, onSelect, className, isOpe
         </button>
       </div>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'stretch' }}>
-        {items.map((it) => (
-          <li key={it.key}>
-            <button
-              type="button"
-              onClick={() => onSelect(it.key)}
-              onKeyDown={(e) => handleKey(e, it.key)}
-              aria-current={selected === it.key ? 'page' : undefined}
-              aria-label={it.label}
-              style={{ width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', fontWeight: 600, cursor: 'pointer', borderRadius: 10, padding: '12px 14px', border: '1px solid transparent', color: selected === it.key ? '#fff' : '#e5e7eb', background: selected === it.key ? 'rgba(255,255,255,0.1)' : 'transparent' }}
-            >
-              {it.label}
-            </button>
-          </li>
-        ))}
+        {items.map((it) => {
+          const isOpen = openKeys.has(it.key);
+          const isSelected = selected === it.key || (hasChildren(it) && it.children.some((c) => c.key === selected));
+          return (
+            <li key={it.key}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (hasChildren(it)) {
+                        // Toggle open and auto-select the first child for a valid view
+                        toggleOpen(it.key);
+                        const first = it.children && it.children[0];
+                        if (first) onSelect?.(first.key);
+                      } else {
+                        onSelect?.(it.key);
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (hasChildren(it)) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          toggleOpen(it.key);
+                          const first = it.children && it.children[0];
+                          if (first) onSelect?.(first.key);
+                        }
+                      } else {
+                        handleKey(e, it.key);
+                      }
+                    }}
+                    aria-current={selected === it.key ? 'page' : undefined}
+                    aria-label={it.label}
+                    aria-expanded={hasChildren(it) ? isOpen : undefined}
+                    aria-controls={hasChildren(it) ? `${it.key}-submenu` : undefined}
+                    style={{ width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontWeight: 700, cursor: 'pointer', borderRadius: 10, padding: '12px 14px', border: '1px solid transparent', color: isSelected ? '#fff' : '#e5e7eb', background: isSelected ? 'rgba(255,255,255,0.1)' : 'transparent' }}
+                  >
+                    <span>{it.label}</span>
+                    {hasChildren(it) && (
+                      <span aria-hidden="true" style={{ opacity: 0.8 }}>{isOpen ? '▾' : '▸'}</span>
+                    )}
+                  </button>
+                </div>
+                {hasChildren(it) && isOpen && (
+                  <ul id={`${it.key}-submenu`} style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 4, marginLeft: 8 }}>
+                    {it.children.map((child) => (
+                      <li key={child.key}>
+                        <button
+                          type="button"
+                          onClick={() => onSelect?.(child.key)}
+                          onKeyDown={(e) => handleKey(e, child.key)}
+                          aria-current={selected === child.key ? 'page' : undefined}
+                          aria-label={child.label}
+                          style={{ width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', fontWeight: 600, cursor: 'pointer', borderRadius: 8, padding: '10px 12px', border: '1px solid transparent', color: selected === child.key ? '#fff' : '#e5e7eb', background: selected === child.key ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)' }}
+                        >
+                          {child.label}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
